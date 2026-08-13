@@ -4,7 +4,7 @@ A music-journey site for Sankha Cooray — keyboardist, arranger, faculty-orches
 lead (University of Sri Jayewardenepura, 2013 – 2015), now exploring HCI research
 toward music.
 
-Deployed at **[ensemble.sankhacooray.com](https://ensemble.sankhacooray.com)** via
+Deployed at **[music.sankhacooray.com](https://music.sankhacooray.com)** via
 GitHub Pages (`gh-pages` branch or repo `main` — wire up as needed).
 
 ## Sections
