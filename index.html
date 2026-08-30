@@ -283,11 +283,11 @@ a { color: inherit; text-decoration: none; }
   border: 1px solid var(--border-soft);
   border-radius: var(--radius);
   padding: 22px;
-  transition: border-color 0.2s, transform 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 .card:hover {
   border-color: var(--border);
-  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
 }
 .card .role {
   font-family: 'JetBrains Mono', monospace;
@@ -522,6 +522,11 @@ footer .links a:hover { color: var(--text); }
   color: var(--cyan);
   background: var(--cyan-soft);
 }
+.tag.muted {
+  border-color: var(--border);
+  color: var(--text-muted);
+  background: transparent;
+}
 
 /* ───────── contact form ───────── */
 .cf-wrap { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(28px, 5vw, 56px); align-items: start; }
@@ -571,6 +576,7 @@ footer .links a:hover { color: var(--text); }
       <a href="#compositions">compositions</a>
       <a href="#studio">studio</a>
       <a href="#research">research</a>
+      <a href="#projects">projects</a>
       <a href="#contact">contact</a>
     </nav>
   </div>
@@ -917,10 +923,81 @@ footer .links a:hover { color: var(--text); }
 </section>
 
 
+<!-- ─── PROJECTS ────────────────────────────────────────── -->
+<section class="section" id="projects">
+  <div class="section-head">
+    <span class="section-num">07</span>
+    <h2>Selected Projects</h2>
+    <span class="tag cool">the workspace</span>
+  </div>
+
+  <p class="research-intro">
+    The music lens is a small workspace of built things — instruments, studios,
+    and voice tools. Some are already <span class="cyan">live</span>; others are
+    still on the bench. What's shown here isn't always reachable yet.
+  </p>
+
+  <div class="card-grid">
+
+    <a class="card" href="https://conduct.sankhacooray.com/" target="_blank" rel="noopener">
+      <span class="tag cool">live</span>
+      <div class="role cool">browser · gesture orchestra</div>
+      <h3>conduct</h3>
+      <div class="where">conduct.sankhacooray.com</div>
+      <p>
+        A motion-driven music experiment — your phone's movement becomes the
+        instrument, across Conductor, Theremin, and Bow modes.
+      </p>
+      <span class="link cool">visit</span>
+    </a>
+
+    <div class="card">
+      <span class="tag muted">in the lab</span>
+      <div class="role">browser · music IDE</div>
+      <h3>voxlab</h3>
+      <div class="where">Vox Track Studio</div>
+      <p>
+        A dependency-free, in-browser music IDE: hum melodies and beatbox grooves
+        into your mic and it transcribes them into notes and drum hits, quantizes,
+        and arranges the tracks on a timeline.
+      </p>
+      <span class="link muted">not public yet</span>
+    </div>
+
+    <div class="card">
+      <span class="tag muted">in the lab</span>
+      <div class="role">web + server · translation</div>
+      <h3>gee-aruth</h3>
+      <div class="where">Gee Aruth · ගී අරුත</div>
+      <p>
+        Paste a Sinhala song and get its literary meaning in English — a
+        Claude-powered read of the lyric's sense, mood, and imagery rather than a
+        stiff word-for-word gloss.
+      </p>
+      <span class="link muted">not public yet</span>
+    </div>
+
+    <div class="card">
+      <span class="tag muted">in the lab</span>
+      <div class="role">kiosk + hub + dashboard · voice data</div>
+      <h3>voicelab</h3>
+      <div class="where">Sinhala voice-data system</div>
+      <p>
+        A distributed voice-data pipeline: kiosk mic nodes detect and transcribe
+        speech, a hub aggregates the live stream, and an Apps Script dashboard
+        stores clips and drives human-in-the-loop labeling.
+      </p>
+      <span class="link muted">not public yet</span>
+    </div>
+
+  </div>
+</section>
+
+
 <!-- ===================== CONTACT ===================== -->
 <section class="section" id="contact">
   <div class="section-head">
-    <span class="section-num">07</span>
+    <span class="section-num">08</span>
     <h2>Get in touch</h2>
   </div>
   <div class="cf-wrap">
