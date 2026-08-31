@@ -289,6 +289,16 @@ a { color: inherit; text-decoration: none; }
   border-color: var(--border);
   box-shadow: 0 8px 24px rgba(0,0,0,0.25);
 }
+.proj-thumb {
+  display: block;
+  width: 100%;
+  aspect-ratio: 800 / 420;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-soft);
+  margin-bottom: 16px;
+}
 .card .role {
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
@@ -940,6 +950,7 @@ footer .links a:hover { color: var(--text); }
   <div class="card-grid">
 
     <a class="card" href="https://conduct.sankhacooray.com/" target="_blank" rel="noopener">
+      <img class="proj-thumb" loading="lazy" src="thumbs/conduct.jpg" alt="conduct preview">
       <span class="tag cool">live</span>
       <div class="role cool">browser · gesture orchestra</div>
       <h3>conduct</h3>
@@ -952,6 +963,7 @@ footer .links a:hover { color: var(--text); }
     </a>
 
     <div class="card">
+      <img class="proj-thumb" loading="lazy" src="thumbs/voxlab.jpg" alt="voxlab preview">
       <span class="tag muted">in the lab</span>
       <div class="role">browser · music IDE</div>
       <h3>voxlab</h3>
@@ -965,6 +977,7 @@ footer .links a:hover { color: var(--text); }
     </div>
 
     <div class="card">
+      <img class="proj-thumb" loading="lazy" src="thumbs/gee-aruth.jpg" alt="gee-aruth preview">
       <span class="tag muted">in the lab</span>
       <div class="role">web + server · translation</div>
       <h3>gee-aruth</h3>
@@ -978,6 +991,7 @@ footer .links a:hover { color: var(--text); }
     </div>
 
     <div class="card">
+      <img class="proj-thumb" loading="lazy" src="thumbs/voicelab.jpg" alt="voicelab preview">
       <span class="tag muted">in the lab</span>
       <div class="role">kiosk + hub + dashboard · voice data</div>
       <h3>voicelab</h3>
