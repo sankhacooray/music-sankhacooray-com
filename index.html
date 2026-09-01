@@ -29,15 +29,59 @@
 <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#0b0a0d">
+<meta name="theme-color" content="#faf7f1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0a0d" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="ensemble">
 
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
+<script>(function(){try{var t=localStorage.getItem("sc-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+
 <style>
 :root {
+  --bg: #faf7f1;
+  --surface: #ffffff;
+  --surface2: #f1ebdf;
+  --border: #d9d0c0;
+  --border-soft: #e6ddcd;
+  --text: #2a2620;
+  --text-dim: #6a6356;
+  --text-muted: #938b7c;
+  --gold: #9a6f2e;
+  --gold-dim: #c19a5b;
+  --gold-soft: rgba(154,111,46,0.10);
+  --cyan: #2b7d90;
+  --cyan-dim: #6fb3c4;
+  --cyan-soft: rgba(43,125,144,0.10);
+  --header-bg: rgba(250,247,241,0.72);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --maxw: 1080px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b0a0d;
+    --surface: #16141b;
+    --surface2: #1e1b25;
+    --border: #2a2632;
+    --border-soft: #221f29;
+    --text: #f0ebe0;
+    --text-dim: #a09a8e;
+    --text-muted: #6a6356;
+    --gold: #d4a574;
+    --gold-dim: #a07d4f;
+    --gold-soft: rgba(212,165,116,0.08);
+    --cyan: #6bc3d6;
+    --cyan-dim: #4a8a99;
+    --cyan-soft: rgba(107,195,214,0.08);
+    --header-bg: rgba(11,10,13,0.7);
+  }
+}
+
+:root[data-theme="dark"] {
   --bg: #0b0a0d;
   --surface: #16141b;
   --surface2: #1e1b25;
@@ -52,9 +96,7 @@
   --cyan: #6bc3d6;
   --cyan-dim: #4a8a99;
   --cyan-soft: rgba(107,195,214,0.08);
-  --radius: 12px;
-  --radius-sm: 8px;
-  --maxw: 1080px;
+  --header-bg: rgba(11,10,13,0.7);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -86,7 +128,7 @@ a { color: inherit; text-decoration: none; }
   z-index: 10;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  background: rgba(11,10,13,0.7);
+  background: var(--header-bg);
   border-bottom: 1px solid var(--border-soft);
 }
 .site-header .inner {
@@ -124,8 +166,20 @@ a { color: inherit; text-decoration: none; }
 }
 .nav a:hover { color: var(--text); }
 
+.theme-toggle { flex:0 0 auto; width:38px; height:38px; display:grid; place-items:center; border-radius:10px; border:1px solid var(--border); background:transparent; color:var(--text-dim); cursor:pointer; transition:color .18s,border-color .18s,background .18s; }
+.theme-toggle:hover { color:var(--gold); border-color:var(--gold-dim); background:var(--surface2); }
+.theme-toggle svg { display:block; }
+.theme-toggle .icon-sun { display:none; }
+.theme-toggle .icon-moon { display:block; }
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .theme-toggle .icon-sun{display:block;} :root:not([data-theme="light"]) .theme-toggle .icon-moon{display:none;} }
+:root[data-theme="dark"] .theme-toggle .icon-sun{display:block;}
+:root[data-theme="dark"] .theme-toggle .icon-moon{display:none;}
+:root[data-theme="light"] .theme-toggle .icon-sun{display:none;}
+:root[data-theme="light"] .theme-toggle .icon-moon{display:block;}
+
 @media (max-width: 640px) {
   .nav { display: none; }
+  .theme-toggle { margin-left: auto; }
 }
 
 /* ─── Hero ────────────────────────────────────────────── */
@@ -589,6 +643,10 @@ footer .links a:hover { color: var(--text); }
       <a href="#projects">projects</a>
       <a href="#contact">contact</a>
     </nav>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark theme" title="Toggle theme">
+      <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
+    </button>
   </div>
 </header>
 
@@ -1120,9 +1178,11 @@ footer .links a:hover { color: var(--text); }
 
   <!-- Shared network footer · cdn.sankhacooray.com (auto-themes to this page) -->
   <div id="scn-footer"></div>
-  <script async src="https://cdn.sankhacooray.com/js/sankha-footer.js?v=20260901"
+  <script async src="https://cdn.sankhacooray.com/js/sankha-footer.js?v=20260902"
           data-site="music.sankhacooray.com"
           data-tagline="a music journey, in progress"></script>
+
+<script>(function(){var r=document.documentElement,K="sc-theme",mq=window.matchMedia("(prefers-color-scheme: dark)");function eff(){try{var s=localStorage.getItem(K);if(s==="light"||s==="dark")return s;}catch(e){}return mq.matches?"dark":"light";}function wire(){var b=document.getElementById("theme-toggle");if(!b)return;b.addEventListener("click",function(){var n=eff()==="dark"?"light":"dark";try{localStorage.setItem(K,n);}catch(e){}r.setAttribute("data-theme",n);window.dispatchEvent(new CustomEvent("sc-themechange",{detail:n}));});}try{if(mq.addEventListener)mq.addEventListener("change",function(){try{if(!localStorage.getItem(K))window.dispatchEvent(new CustomEvent("sc-themechange"));}catch(e){}});}catch(e){}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",wire);else wire();})();</script>
 
 <script async src="https://sankhacooray.com/js/sankha-analytics.js"></script>
 </body>
