@@ -1,7 +1,7 @@
 {
-  "name": "ensemble — Sankha Cooray",
-  "short_name": "ensemble",
-  "description": "Keyboardist, arranger, faculty-orchestra lead — now exploring HCI research toward music.",
+  "name": "Music — Sankha Cooray",
+  "short_name": "Music",
+  "description": "Keyboardist and arranger in a university orchestra — now exploring HCI research toward music.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

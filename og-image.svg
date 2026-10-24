@@ -28,26 +28,26 @@
     <text x="20" y="0"
           font-family="Georgia, 'Times New Roman', serif"
           font-size="30" font-style="italic"
-          fill="#d4a574" letter-spacing="-0.5">ensemble</text>
+          fill="#d4a574" letter-spacing="-0.5">Music</text>
   </g>
 
   <!-- eyebrow -->
   <text x="80" y="218"
         font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
         font-size="16" font-weight="500"
-        fill="#d4a574" letter-spacing="4">A MUSIC JOURNEY · 2013 — PRESENT</text>
+        fill="#d4a574" letter-spacing="4">A MUSIC JOURNEY · 2010 — PRESENT</text>
 
   <!-- hero headline -->
   <g font-family="Georgia, 'Times New Roman', serif" fill="#f0ebe0">
-    <text x="80" y="320" font-size="78" font-style="italic" letter-spacing="-2">People, instruments,</text>
-    <text x="80" y="408" font-size="78" font-style="italic" letter-spacing="-2">and a little bit of <tspan fill="url(#accent)">code</tspan>.</text>
+    <text x="80" y="316" font-size="66" font-style="italic" letter-spacing="-2">People, instruments, <tspan fill="url(#accent)">chord</tspan></text>
+    <text x="80" y="396" font-size="66" font-style="italic" letter-spacing="-2">and a little bit of <tspan fill="url(#accent)">code</tspan>.</text>
   </g>
 
   <!-- subtitle -->
   <text x="80" y="476"
         font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
         font-size="22" font-weight="400"
-        fill="#a09a8e">Keyboardist · arranger · faculty-orchestra lead · HCI explorer</text>
+        fill="#a09a8e">Keyboardist · arranger · HCI explorer</text>
 
   <!-- footer -->
   <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">

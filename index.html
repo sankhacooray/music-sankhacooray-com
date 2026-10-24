@@ -3,26 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>ensemble — Sankha Cooray · a music journey</title>
-<meta name="description" content="Keyboardist, arranger, faculty-orchestra lead — now exploring HCI research toward music. Performances, compositions, and computer-music experiments.">
+<title>Music — Sankha Cooray · a music journey</title>
+<meta name="description" content="Keyboardist and arranger in a university orchestra — now exploring HCI research toward music. Performances, compositions, and computer-music experiments.">
 <link rel="canonical" href="https://music.sankhacooray.com/">
 
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="ensemble">
-<meta property="og:title" content="ensemble — Sankha Cooray · a music journey">
-<meta property="og:description" content="Keyboardist, arranger, faculty-orchestra lead — now exploring HCI research toward music.">
+<meta property="og:site_name" content="Music">
+<meta property="og:title" content="Music — Sankha Cooray · a music journey">
+<meta property="og:description" content="Keyboardist and arranger in a university faculty orchestra — now exploring HCI research toward music.">
 <meta property="og:url" content="https://music.sankhacooray.com/">
 <meta property="og:image" content="https://music.sankhacooray.com/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="ensemble — a music journey. Italic serif headline ‘People, instruments, and a little bit of code.’ on a dark warm background with stylised gold and cyan music notes.">
+<meta property="og:image:alt" content="Music — a music journey. Italic serif headline ‘People, instruments, chord and a little bit of code.’ on a dark warm background with stylised gold and cyan music notes.">
 <meta property="og:locale" content="en_US">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="ensemble — Sankha Cooray · a music journey">
-<meta name="twitter:description" content="Keyboardist, arranger, faculty-orchestra lead — now exploring HCI research toward music.">
+<meta name="twitter:title" content="Music — Sankha Cooray · a music journey">
+<meta name="twitter:description" content="Keyboardist and arranger in a university faculty orchestra — now exploring HCI research toward music.">
 <meta name="twitter:image" content="https://music.sankhacooray.com/og-image.png">
-<meta name="twitter:image:alt" content="ensemble — a music journey. Italic serif headline ‘People, instruments, and a little bit of code.’ on a dark warm background with stylised gold and cyan music notes.">
+<meta name="twitter:image:alt" content="Music — a music journey. Italic serif headline ‘People, instruments, chord and a little bit of code.’ on a dark warm background with stylised gold and cyan music notes.">
 
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
@@ -33,9 +33,9 @@
 <meta name="theme-color" content="#0b0a0d" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="ensemble">
+<meta name="apple-mobile-web-app-title" content="Music">
 
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Atkinson+Hyperlegible+Next:wght@300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <script>(function(){try{var t=localStorage.getItem("sc-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 
@@ -56,6 +56,7 @@
   --cyan-dim: #6fb3c4;
   --cyan-soft: rgba(43,125,144,0.10);
   --header-bg: rgba(250,247,241,0.72);
+  --cta-fg: #ffffff;
   --radius: 12px;
   --radius-sm: 8px;
   --maxw: 1080px;
@@ -78,6 +79,7 @@
     --cyan-dim: #4a8a99;
     --cyan-soft: rgba(107,195,214,0.08);
     --header-bg: rgba(11,10,13,0.7);
+    --cta-fg: #0b0a0d;
   }
 }
 
@@ -97,18 +99,21 @@
   --cyan-dim: #4a8a99;
   --cyan-soft: rgba(107,195,214,0.08);
   --header-bg: rgba(11,10,13,0.7);
+  --cta-fg: #0b0a0d;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+/* No overscroll bounce (ui-ux rule 14): the page scrolls inside <body>. */
+html { height: 100%; overflow: hidden; background: var(--bg); overscroll-behavior: none; }
+body { height: 100%; overflow-y: auto; overflow-x: hidden; overscroll-behavior: none; scroll-behavior: smooth; }
 
 body {
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Atkinson Hyperlegible Next', system-ui, sans-serif;
+  font-size: 17px;
   background: var(--bg);
   color: var(--text);
-  min-height: 100vh;
-  line-height: 1.55;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   background-image:
     radial-gradient(800px 400px at 20% -10%, rgba(212,165,116,0.06), transparent 60%),
@@ -129,15 +134,14 @@ a { color: inherit; text-decoration: none; }
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   background: var(--header-bg);
-  border-bottom: 1px solid var(--border-soft);
 }
 .site-header .inner {
   max-width: var(--maxw);
   margin: 0 auto;
-  padding: 18px 28px;
+  padding: 12px 28px;
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 28px;
 }
 .brand {
   display: flex;
@@ -146,26 +150,34 @@ a { color: inherit; text-decoration: none; }
 }
 .brand-mark {
   font-family: 'Instrument Serif', serif;
-  font-size: 28px;
+  font-size: 30px;
   color: var(--gold);
   letter-spacing: -0.5px;
-}
-.brand-tag {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
 }
 .nav {
   margin-left: auto;
   display: flex;
   gap: 24px;
-  font-size: 14px;
+  font-size: 16px;
   color: var(--text-dim);
 }
 .nav a:hover { color: var(--text); }
 
+.bar-cta {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  height: 38px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: var(--gold);
+  color: var(--cta-fg);
+  font-size: 15px;
+  font-weight: 600;
+  box-shadow: 0 0 0 0 var(--gold-soft);
+  transition: background .18s, box-shadow .18s;
+}
+.bar-cta:hover { background: var(--gold-dim); box-shadow: 0 0 0 6px var(--gold-soft), 0 6px 22px var(--gold-soft); }
 .theme-toggle { flex:0 0 auto; width:38px; height:38px; display:grid; place-items:center; border-radius:10px; border:1px solid var(--border); background:transparent; color:var(--text-dim); cursor:pointer; transition:color .18s,border-color .18s,background .18s; }
 .theme-toggle:hover { color:var(--gold); border-color:var(--gold-dim); background:var(--surface2); }
 .theme-toggle svg { display:block; }
@@ -177,50 +189,83 @@ a { color: inherit; text-decoration: none; }
 :root[data-theme="light"] .theme-toggle .icon-sun{display:none;}
 :root[data-theme="light"] .theme-toggle .icon-moon{display:block;}
 
-@media (max-width: 640px) {
+@media (max-width: 900px) {
   .nav { display: none; }
-  .theme-toggle { margin-left: auto; }
+  .bar-cta { margin-left: auto; }
 }
 
 /* ─── Hero ────────────────────────────────────────────── */
 .hero {
   max-width: var(--maxw);
   margin: 0 auto;
-  padding: 120px 28px 80px;
+  padding-inline: 28px;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  grid-template-areas: "eb eb" "h1 h1" "lede art" "meta art";
+  align-content: center;
+  column-gap: clamp(24px, 4vw, 56px);
+}
+.hero-text { display: contents; }
+.hero .eyebrow { grid-area: eb; }
+.hero h1 { grid-area: h1; }
+.hero .lede { grid-area: lede; align-self: end; }
+.hero .meta { grid-area: meta; align-self: start; }
+.hero-art { grid-area: art; align-self: center; }
+.hero-art { margin: 0; }
+.hero-art svg { display: block; width: 100%; height: auto; max-height: min(52vh, 420px); }
+.hero-art .kb-case { fill: var(--surface2); }
+/* a keyboard looks the same in both themes: ivory and black keys */
+.hero-art .whites rect { fill: #f6f1e7; stroke: #cfc5b3; stroke-width: 1; }
+.hero-art .whites rect.on { fill: #ecd6b0; stroke: var(--gold); stroke-width: 2; }
+.hero-art .blacks rect { fill: #1d1a17; }
+.hero-art .key-labels text { font-family: 'JetBrains Mono', monospace; font-size: 15px; font-weight: 600; fill: #8a5f22; text-anchor: middle; }
+.hero-art .rise path { fill: none; stroke: var(--gold-dim); stroke-width: 1.5; stroke-dasharray: 3 4; }
+.hero-art .rise circle { fill: var(--gold); }
+.hero-art .code rect { fill: var(--surface); stroke: var(--cyan-dim); stroke-width: 1.2; }
+.hero-art .code text { font-family: 'JetBrains Mono', monospace; font-size: 15px; fill: var(--text); }
+.hero-art .code .fn { fill: var(--cyan); }
+.hero-art .code .str { fill: var(--gold); }
+.hero-art .code .dim { fill: var(--text-dim); font-size: 14px; }
+.hero-art .code .hz { fill: var(--cyan); font-size: 14px; }
+.hero-art .wave path { fill: none; stroke: var(--cyan); stroke-width: 2; stroke-linecap: round; }
+@media (max-width: 760px) {
+  .hero { grid-template-columns: 1fr; grid-template-areas: "eb" "h1" "lede" "meta" "art"; grid-template-rows: none; }
+  .hero-art { margin-top: 24px; }
+  .hero-art svg { max-height: 260px; }
 }
 .hero .eyebrow {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--gold);
   text-transform: uppercase;
   letter-spacing: 2px;
-  margin-bottom: 24px;
+  margin-bottom: clamp(12px, 3vh, 24px);
 }
 .hero h1 {
   font-family: 'Instrument Serif', serif;
   font-weight: 400;
-  font-size: clamp(44px, 7vw, 84px);
+  font-size: clamp(38px, min(7vw, 10vh), 84px);
   line-height: 1.05;
   letter-spacing: -1.5px;
   color: var(--text);
-  margin-bottom: 28px;
+  margin-bottom: clamp(14px, 3.5vh, 28px);
 }
 .hero h1 em {
   color: var(--gold);
   font-style: italic;
 }
 .hero .lede {
-  font-size: 19px;
+  font-size: clamp(17px, 2.8vh, 21px);
   color: var(--text-dim);
   max-width: 640px;
-  margin-bottom: 40px;
+  margin-bottom: clamp(18px, 4.5vh, 40px);
 }
 .hero .meta {
   display: flex;
   flex-wrap: wrap;
   gap: 8px 14px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-muted);
 }
 .hero .meta span::before {
@@ -233,9 +278,24 @@ a { color: inherit; text-decoration: none; }
 .section {
   max-width: var(--maxw);
   margin: 0 auto;
-  padding: 72px 28px;
-  border-top: 1px solid var(--border-soft);
+  padding-inline: 28px;
 }
+
+/* Screen-fit groups (ui-ux rules 1, 2, 5): each section is a group; the
+   script packs groups into screens and shares out the leftover height. */
+.group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: clamp(16px, 3vh, 48px);
+  scroll-margin-top: var(--bar-h, 74px);
+}
+.group > .section-head { margin-bottom: clamp(18px, 3.6vh, 40px); }
+/* Footer pinned to the bottom of the last screen; content above stays centred. */
+.group:last-child > .section-head { margin-top: auto; }
+.group:last-child > .page-footer { margin-top: auto; padding-top: clamp(12px, 2.5vh, 32px); }
+.page-footer .scn-inner { padding-top: 12px; padding-bottom: 8px; }
+.page-footer .scn-inner { padding-inline: 0; }
 .section-head {
   display: flex;
   align-items: baseline;
@@ -244,14 +304,15 @@ a { color: inherit; text-decoration: none; }
 }
 .section-num {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-muted);
   letter-spacing: 1px;
 }
+.section-head .tag { align-self: center; }
 .section h2 {
   font-family: 'Instrument Serif', serif;
   font-weight: 400;
-  font-size: 36px;
+  font-size: 40px;
   letter-spacing: -0.5px;
 }
 
@@ -262,10 +323,10 @@ a { color: inherit; text-decoration: none; }
   gap: 48px;
 }
 .about-grid p {
-  font-size: 16px;
+  font-size: clamp(17px, 2.6vh, 22px);
   color: var(--text-dim);
 }
-.about-grid p + p { margin-top: 16px; }
+.about-grid p + p { margin-top: clamp(12px, 2.4vh, 22px); }
 .about-grid strong { color: var(--text); font-weight: 500; }
 .about-grid .accent { color: var(--gold); }
 
@@ -290,7 +351,7 @@ a { color: inherit; text-decoration: none; }
 }
 .t-item {
   position: relative;
-  padding-bottom: 36px;
+  padding-bottom: clamp(14px, 2.2vh, 36px);
 }
 .t-item::before {
   content: "";
@@ -309,24 +370,70 @@ a { color: inherit; text-decoration: none; }
 }
 .t-year {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--gold);
   letter-spacing: 1px;
   margin-bottom: 6px;
 }
 .t-item.research .t-year { color: var(--cyan); }
+.t-body a { color: var(--gold); border-bottom: 1px solid currentColor; white-space: nowrap; }
+.t-body a:hover { opacity: .8; }
 .t-title {
   font-family: 'Instrument Serif', serif;
-  font-size: 22px;
+  font-size: 24px;
   margin-bottom: 4px;
 }
 .t-body {
-  font-size: 14px;
+  font-size: 16px;
   color: var(--text-dim);
   max-width: 560px;
 }
 
+/* Alternating two-sided timeline on wider screens */
+@media (min-width: 761px) {
+  .timeline { padding-left: 0; }
+  .timeline::before { left: 50%; transform: translateX(-50%); }
+  .t-item {
+    width: 50%;
+    box-sizing: border-box;
+    padding-right: 48px;
+    text-align: right;
+  }
+  .t-item::before { left: auto; right: -4.5px; }
+  .t-item .t-body { margin-left: auto; }
+  .t-item:nth-child(even) {
+    margin-left: 50%;
+    padding-right: 0;
+    padding-left: 48px;
+    text-align: left;
+  }
+  .t-item:nth-child(even)::before { right: auto; left: -4.5px; }
+  .t-item:nth-child(even) .t-body { margin-left: 0; }
+  .t-item + .t-item { margin-top: -72px; }
+}
+
 /* ─── Card grids ──────────────────────────────────────── */
+/* Cards that stand on a screen of their own scale with its height, but keep
+   breathing room (ui-ux rule 4). */
+@media (min-width: 901px) {
+  #stage-concerts .card-grid { min-height: min(46vh, 440px); }
+  #stage-concerts .card { display: flex; flex-direction: column; justify-content: center; padding: clamp(20px, 3.4vh, 40px) clamp(20px, 2vw, 30px); }
+  #stage-concerts .card h3 { font-size: clamp(22px, 3.2vh, 30px); }
+  #stage-concerts .card p { font-size: clamp(15px, 2.2vh, 19px); }
+  #studio .tool { min-height: clamp(84px, 15vh, 150px); padding: clamp(16px, 2.6vh, 28px); }
+  #studio .tool .glyph { width: clamp(36px, 6vh, 54px); height: clamp(36px, 6vh, 54px); }
+  #studio .tool .glyph svg, #studio .tool .glyph img { width: 66%; height: 66%; }
+  #studio .tool .name { font-size: clamp(16px, 2.3vh, 20px); }
+  #projects .proj-thumb { aspect-ratio: 800 / 360; }
+}
+#research .card-grid, #projects .card-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (min-width: 1001px) {
+  #research .card, #projects .card { padding: clamp(14px, 2.4vh, 22px) 18px; }
+  #research .card p, #projects .card p { font-size: clamp(14px, 1.9vh, 16px); line-height: 1.55; }
+  #projects .proj-thumb { width: calc(100% + 36px); margin: calc(-1 * clamp(14px, 2.4vh, 22px)) -18px 14px; }
+}
+@media (max-width: 1000px) { #research .card-grid, #projects .card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px)  { #research .card-grid, #projects .card-grid { grid-template-columns: 1fr; } }
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -337,6 +444,7 @@ a { color: inherit; text-decoration: none; }
   border: 1px solid var(--border-soft);
   border-radius: var(--radius);
   padding: 22px;
+  overflow: hidden;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 .card:hover {
@@ -345,17 +453,17 @@ a { color: inherit; text-decoration: none; }
 }
 .proj-thumb {
   display: block;
-  width: 100%;
+  width: calc(100% + 44px);
+  max-width: none;
   aspect-ratio: 800 / 420;
   object-fit: cover;
   object-position: top center;
-  border-radius: var(--radius);
-  border: 1px solid var(--border-soft);
-  margin-bottom: 16px;
+  margin: -22px -22px 18px;
+  border-radius: var(--radius) var(--radius) 0 0;
 }
 .card .role {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
+  font-size: 12px;
   color: var(--gold);
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -364,24 +472,24 @@ a { color: inherit; text-decoration: none; }
 .card .role.cool { color: var(--cyan); }
 .card h3 {
   font-family: 'Instrument Serif', serif;
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 400;
   margin-bottom: 6px;
   letter-spacing: -0.2px;
 }
 .card .where {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--text-muted);
   margin-bottom: 12px;
 }
 .card p {
-  font-size: 14px;
+  font-size: 16px;
   color: var(--text-dim);
 }
 .card .link {
   margin-top: 14px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--gold);
   letter-spacing: 1px;
   display: inline-flex;
@@ -426,20 +534,20 @@ a { color: inherit; text-decoration: none; }
   align-items: center;
   justify-content: center;
   font-family: 'Instrument Serif', serif;
-  font-size: 18px;
+  font-size: 20px;
   color: var(--gold);
   flex-shrink: 0;
 }
 .tool .body { flex: 1; min-width: 0; }
 .tool .name {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   color: var(--text);
   margin-bottom: 2px;
 }
 .tool .role {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
+  font-size: 12px;
   color: var(--text-muted);
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -447,7 +555,7 @@ a { color: inherit; text-decoration: none; }
 
 .note {
   margin-top: 24px;
-  font-size: 13px;
+  font-size: 15px;
   color: var(--text-muted);
   font-style: italic;
   padding-left: 12px;
@@ -479,7 +587,7 @@ a { color: inherit; text-decoration: none; }
 }
 .comp-meta .role {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
+  font-size: 12px;
   color: var(--gold);
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -487,18 +595,18 @@ a { color: inherit; text-decoration: none; }
 }
 .comp-meta h3 {
   font-family: 'Instrument Serif', serif;
-  font-size: 28px;
+  font-size: 30px;
   font-weight: 400;
   letter-spacing: -0.3px;
   margin-bottom: 6px;
 }
 .comp-meta .where {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--text-muted);
   margin-bottom: 18px;
 }
 .comp-meta p {
-  font-size: 14px;
+  font-size: 16px;
   color: var(--text-dim);
   margin-bottom: 18px;
 }
@@ -512,20 +620,20 @@ a { color: inherit; text-decoration: none; }
   flex-direction: column;
   gap: 2px;
   padding-bottom: 10px;
-  border-bottom: 1px solid var(--border-soft);
 }
 .credits .credit-role {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 1px;
   text-transform: uppercase;
   color: var(--text-muted);
 }
 .credits .credit-name {
-  font-size: 14px;
+  font-size: 16px;
   color: var(--text);
 }
 .credits .credit-name em { color: var(--gold); font-style: normal; }
+.credits.two-col { grid-template-columns: 1fr 1fr; column-gap: 24px; }
 
 .composition + .card-grid { margin-top: 40px; }
 
@@ -535,38 +643,12 @@ a { color: inherit; text-decoration: none; }
 
 /* ─── Research section ───────────────────────────────── */
 .research-intro {
-  font-size: 17px;
+  font-size: 19px;
   color: var(--text-dim);
   max-width: 680px;
   margin-bottom: 36px;
 }
 .research-intro .cyan { color: var(--cyan); }
-
-/* ─── Footer ──────────────────────────────────────────── */
-footer {
-  max-width: var(--maxw);
-  margin: 0 auto;
-  padding: 60px 28px 80px;
-  border-top: 1px solid var(--border-soft);
-  margin-top: 40px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
-  align-items: baseline;
-  font-size: 13px;
-  color: var(--text-muted);
-}
-footer .mark {
-  font-family: 'Instrument Serif', serif;
-  color: var(--gold);
-  font-size: 20px;
-}
-footer .links {
-  margin-left: auto;
-  display: flex;
-  gap: 20px;
-}
-footer .links a:hover { color: var(--text); }
 
 /* ─── Tag ─────────────────────────────────────────────── */
 .tag {
@@ -574,7 +656,7 @@ footer .links a:hover { color: var(--text); }
   padding: 3px 10px;
   border-radius: 999px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 1px;
   text-transform: uppercase;
   border: 1px solid var(--gold-dim);
@@ -594,33 +676,35 @@ footer .links a:hover { color: var(--text); }
 
 /* ───────── contact form ───────── */
 .cf-wrap { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(28px, 5vw, 56px); align-items: start; }
-.cf-intro p { color: var(--text-dim); font-size: 16px; line-height: 1.65; margin: 0 0 22px; }
+.cf-intro p { color: var(--text-dim); font-size: 18px; line-height: 1.65; margin: 0 0 22px; }
 .cf-links { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 16px; }
-.cf-links a { font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); }
+.cf-links a { font-family: 'JetBrains Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); }
 .cf-links a:hover { text-decoration: underline; }
 .cf-form[hidden] { display: none; }
-.cf-form fieldset { border: 0; margin: 0; padding: 0; display: grid; gap: 16px; }
+.cf-form fieldset { border: 0; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px; }
+.cf-form fieldset > .cf-field:nth-of-type(3) { grid-column: 1 / -1; }
+@media (max-width: 520px) { .cf-form fieldset { grid-template-columns: 1fr; } }
 .cf-form fieldset[disabled] { opacity: .55; }
 .cf-field { display: grid; gap: 7px; }
-.cf-field label { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
-.cf-field input, .cf-field textarea { width: 100%; box-sizing: border-box; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text); font-family: inherit; font-size: 15px; padding: 12px 14px; resize: vertical; transition: border-color .18s ease, box-shadow .18s ease; }
+.cf-field label { font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
+.cf-field input, .cf-field textarea { width: 100%; box-sizing: border-box; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text); font-family: inherit; font-size: 17px; padding: 12px 14px; resize: vertical; transition: border-color .18s ease, box-shadow .18s ease; }
 .cf-field input:focus, .cf-field textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-soft); }
 .cf-field input::placeholder, .cf-field textarea::placeholder { color: var(--text-muted); }
 .cf-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
-.cf-submit { margin-top: 20px; width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: var(--gold); color: var(--bg); border: 0; border-radius: var(--radius-sm); cursor: pointer; font-family: 'JetBrains Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; padding: 14px 20px; transition: opacity .18s ease, transform .12s ease; }
+.cf-submit { margin-top: 20px; width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: var(--gold); color: var(--bg); border: 0; border-radius: var(--radius-sm); cursor: pointer; font-family: 'JetBrains Mono', monospace; font-size: 15px; text-transform: uppercase; letter-spacing: 1px; padding: 14px 20px; transition: opacity .18s ease, transform .12s ease; }
 .cf-submit:hover { opacity: .9; }
 .cf-submit:active { transform: translateY(1px); }
 .cf-submit.is-loading { pointer-events: none; opacity: .85; }
 .cf-spinner { display: none; width: 15px; height: 15px; border: 2px solid rgba(0,0,0,.3); border-top-color: var(--bg); border-radius: 50%; animation: cf-spin .7s linear infinite; }
 .cf-submit.is-loading .cf-spinner { display: inline-block; }
 @keyframes cf-spin { to { transform: rotate(360deg); } }
-.cf-status { min-height: 20px; margin: 14px 0 0; font-size: 14px; color: #ef6b6b; }
+.cf-status { min-height: 20px; margin: 14px 0 0; font-size: 16px; color: #ef6b6b; }
 .cf-success { text-align: center; padding: 16px 0; }
 .cf-success[hidden] { display: none; }
 .cf-check { width: 56px; height: 56px; margin: 0 auto 18px; display: grid; place-items: center; border-radius: 50%; background: var(--gold-soft); color: var(--gold); }
-.cf-success h3 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 26px; }
+.cf-success h3 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 28px; }
 .cf-success p { color: var(--text-dim); margin: 8px 0 0; }
-.cf-again { margin-top: 22px; background: transparent; border: 1px solid var(--border); color: var(--text-dim); border-radius: var(--radius-sm); cursor: pointer; font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; padding: 11px 18px; transition: border-color .18s ease, color .18s ease; }
+.cf-again { margin-top: 22px; background: transparent; border: 1px solid var(--border); color: var(--text-dim); border-radius: var(--radius-sm); cursor: pointer; font-family: 'JetBrains Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; padding: 11px 18px; transition: border-color .18s ease, color .18s ease; }
 .cf-again:hover { border-color: var(--gold); color: var(--text); }
 @media (max-width: 720px) { .cf-wrap { grid-template-columns: 1fr; } }
 </style>
@@ -630,8 +714,7 @@ footer .links a:hover { color: var(--text); }
 <header class="site-header">
   <div class="inner">
     <div class="brand">
-      <span class="brand-mark">ensemble</span>
-      <span class="brand-tag">sankha cooray</span>
+      <span class="brand-mark">Music</span>
     </div>
     <nav class="nav">
       <a href="#about">about</a>
@@ -641,8 +724,8 @@ footer .links a:hover { color: var(--text); }
       <a href="#studio">studio</a>
       <a href="#research">research</a>
       <a href="#projects">projects</a>
-      <a href="#contact">contact</a>
     </nav>
+    <a class="bar-cta" href="#contact">Say hello</a>
     <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark theme" title="Toggle theme">
       <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
       <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
@@ -650,11 +733,14 @@ footer .links a:hover { color: var(--text); }
   </div>
 </header>
 
-<section class="hero">
-  <div class="eyebrow">a music journey · 2009 — present</div>
-  <h1>People, instruments,<br>and a little bit of <em>code</em>.</h1>
+<main id="home">
+
+<section class="hero group" data-solo>
+  <div class="hero-text">
+  <div class="eyebrow">a music journey · 2010 — present</div>
+  <h1>People, instruments, <em>chord</em><br>and a little bit of <em>code</em>.</h1>
   <p class="lede">
-    Keyboardist by hand, arranger by habit, faculty-orchestra lead by accident — now sneaking music
+    Keyboardist by hand, arranger by habit, co-lead of the faculty orchestra, once — now sneaking music
     into HCI research, one sensor at a time.
   </p>
   <div class="meta">
@@ -662,10 +748,61 @@ footer .links a:hover { color: var(--text); }
     <span>part-time enthusiast</span>
     <span>occasionally near-professional</span>
   </div>
+  </div>
+  <figure class="hero-art" aria-label="A C major chord on a keyboard, turned into code and frequencies">
+    <svg viewBox="0 0 440 340" role="img" aria-hidden="true">
+      <!-- the chord: C4 · E4 · G4 on a one-octave keyboard -->
+      <g class="kb" transform="translate(20,170)">
+        <rect class="kb-case" x="-10" y="-14" width="420" height="150" rx="14"/>
+        <g class="whites">
+          <rect x="0"   width="56" height="120" rx="5" class="on"/>
+          <rect x="57"  width="56" height="120" rx="5"/>
+          <rect x="114" width="56" height="120" rx="5" class="on"/>
+          <rect x="171" width="56" height="120" rx="5"/>
+          <rect x="228" width="56" height="120" rx="5" class="on"/>
+          <rect x="285" width="56" height="120" rx="5"/>
+          <rect x="342" width="56" height="120" rx="5"/>
+        </g>
+        <g class="blacks">
+          <rect x="39"  width="34" height="74" rx="4"/>
+          <rect x="96"  width="34" height="74" rx="4"/>
+          <rect x="210" width="34" height="74" rx="4"/>
+          <rect x="267" width="34" height="74" rx="4"/>
+          <rect x="324" width="34" height="74" rx="4"/>
+        </g>
+        <g class="key-labels">
+          <text x="28"  y="106">C</text>
+          <text x="142" y="106">E</text>
+          <text x="256" y="106">G</text>
+        </g>
+      </g>
+      <!-- notes rise from the pressed keys into the code card -->
+      <g class="rise">
+        <path d="M48 156 C48 128 70 118 92 112"/>
+        <path d="M162 156 C162 132 168 122 176 112"/>
+        <path d="M276 156 C276 132 266 122 258 112"/>
+        <circle cx="48"  cy="156" r="5"/>
+        <circle cx="162" cy="156" r="5"/>
+        <circle cx="276" cy="156" r="5"/>
+      </g>
+      <!-- the code -->
+      <g class="code" transform="translate(70,18)">
+        <rect width="300" height="94" rx="12"/>
+        <text x="18" y="32"><tspan class="fn">chord</tspan>(<tspan class="str">"C"</tspan>)</text>
+        <text x="18" y="56" class="dim">→ C4 · E4 · G4</text>
+        <text x="18" y="78" class="hz">261.6 · 329.6 · 392.0 Hz</text>
+      </g>
+      <!-- and out comes sound -->
+      <g class="wave" transform="translate(384,64)">
+        <path d="M0 0 q6 -14 12 0 t12 0 t12 0"/>
+        <path d="M0 18 q6 -10 12 0 t12 0 t12 0"/>
+      </g>
+    </svg>
+  </figure>
 </section>
 
 <!-- ─── ABOUT ───────────────────────────────────────────── -->
-<section class="section" id="about">
+<section class="section group" id="about">
   <div class="section-head">
     <span class="section-num">01</span>
     <h2>About</h2>
@@ -679,8 +816,8 @@ footer .links a:hover { color: var(--text); }
         <em>sits right</em>.
       </p>
       <p>
-        From 2013 to 2015 I led the <strong>Faculty Orchestra at the University of Sri Jayewardenepura</strong>,
-        and performed in concerts across both university auditoriums and the largest theatres in Sri Lanka.
+        From 2013 to 2015 I played keyboard in the <strong>Faculty Orchestra at the University of Sri Jayewardenepura</strong>,
+        co-led it once, and performed in concerts across both university auditoriums and the largest theatres in Sri Lanka.
       </p>
     </div>
     <div>
@@ -698,7 +835,7 @@ footer .links a:hover { color: var(--text); }
 </section>
 
 <!-- ─── JOURNEY ─────────────────────────────────────────── -->
-<section class="section" id="journey">
+<section class="section group" id="journey">
   <div class="section-head">
     <span class="section-num">02</span>
     <h2>The Journey</h2>
@@ -706,10 +843,19 @@ footer .links a:hover { color: var(--text); }
   <div class="timeline">
 
     <div class="t-item">
+      <div class="t-year">2010</div>
+      <div class="t-title">Nil Ahasa Sara — school science day</div>
+      <p class="t-body">
+        Composed an original song for the science day at Taxila Central College,
+        then sequenced, recorded, and mixed it at home. <a href="#compositions">Listen below</a>.
+      </p>
+    </div>
+
+    <div class="t-item">
       <div class="t-year">2013</div>
       <div class="t-title">Faculty Orchestra — University of Sri Jayewardenepura</div>
       <p class="t-body">
-        Joined as keyboardist, eventually leading the ensemble. Learned more about
+        Joined as keyboardist, and later co-led the ensemble once. Learned more about
         cueing, dynamics, and people than any single instrument could teach.
       </p>
     </div>
@@ -757,7 +903,7 @@ footer .links a:hover { color: var(--text); }
 </section>
 
 <!-- ─── STAGE ───────────────────────────────────────────── -->
-<section class="section" id="stage">
+<section class="section group" id="stage">
   <div class="section-head">
     <span class="section-num">03</span>
     <h2>On Stage</h2>
@@ -767,7 +913,7 @@ footer .links a:hover { color: var(--text); }
     <div class="video-frame">
       <iframe
         src="https://www.youtube-nocookie.com/embed/xC8n4EGagz0"
-        title="Band Introduction — Sisi Arundathee 2015"
+        title="Sisi Arundathee 2015"
         loading="lazy"
         allow="accelerated-download; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         referrerpolicy="strict-origin-when-cross-origin"
@@ -776,21 +922,17 @@ footer .links a:hover { color: var(--text); }
 
     <div class="comp-meta">
       <div class="role">orchestra intro · live</div>
-      <h3>Band Introduction — Sisi Arundathee 2015</h3>
-      <div class="where">Sisi Arundathee · university concert · 2015</div>
+      <h3>Sisi Arundathee 2015</h3>
+      <div class="where">university concert · 2015</div>
       <p>
         The main performance track and orchestra introduction from <em>Sisi Arundathee</em>.
         I directed the creative chord arrangements; the composition was a collective effort
         by the ensemble.
       </p>
-      <ul class="credits">
+      <ul class="credits two-col">
         <li>
-          <span class="credit-role">creative chord arrangements · direction</span>
+          <span class="credit-role">music director</span>
           <span class="credit-name"><em>Sankha Cooray</em></span>
-        </li>
-        <li>
-          <span class="credit-role">composition</span>
-          <span class="credit-name">collective · the ensemble</span>
         </li>
         <li>
           <span class="credit-role">orchestra lead</span>
@@ -800,6 +942,9 @@ footer .links a:hover { color: var(--text); }
     </div>
   </div>
 
+</section>
+
+<section class="section group" id="stage-concerts" aria-label="Concerts">
   <div class="card-grid">
 
     <a class="card" href="https://www.youtube.com/watch?v=xC8n4EGagz0" target="_blank" rel="noopener">
@@ -814,7 +959,7 @@ footer .links a:hover { color: var(--text); }
     </a>
 
     <div class="card">
-      <div class="role">annual · USJ</div>
+      <div class="role">annual · USJP</div>
       <h3>Sathsara Dehena</h3>
       <div class="where">University of Sri Jayewardenepura auditorium</div>
       <p>
@@ -844,18 +989,18 @@ footer .links a:hover { color: var(--text); }
 </section>
 
 <!-- ─── COMPOSITIONS ─────────────────────────────────────── -->
-<section class="section" id="compositions">
+<section class="section group" id="compositions">
   <div class="section-head">
     <span class="section-num">04</span>
     <h2>Compositions</h2>
-    <span class="tag">2009</span>
+    <span class="tag">2010</span>
   </div>
 
   <div class="composition">
     <div class="video-frame">
       <iframe
         src="https://www.youtube-nocookie.com/embed/imdawOKGn14"
-        title="Nil Ahasa Sara — composition by Sankha Cooray (2009)"
+        title="Nil Ahasa Sara — composition by Sankha Cooray (2010)"
         loading="lazy"
         allow="accelerated-download; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         referrerpolicy="strict-origin-when-cross-origin"
@@ -865,7 +1010,7 @@ footer .links a:hover { color: var(--text); }
     <div class="comp-meta">
       <div class="role">original song · science day</div>
       <h3>Nil Ahasa Sara</h3>
-      <div class="where">Taxila Central College · Sri Lanka · 2009</div>
+      <div class="where">Taxila Central College · Sri Lanka · 2010</div>
       <p>
         An original composition written for the school science day. The whole song came
         together over a handful of nights — MIDI sequenced and arranged the first night,
@@ -884,15 +1029,11 @@ footer .links a:hover { color: var(--text); }
         </li>
         <li>
           <span class="credit-role">lyrics</span>
-          <span class="credit-name">Wasthsala Lakmali Dayananda</span>
+          <span class="credit-name">Wasthsala Dayananda</span>
         </li>
         <li>
           <span class="credit-role">vocals</span>
           <span class="credit-name">Chathura Jayasankha &amp; Thrikala Dharani</span>
-        </li>
-        <li>
-          <span class="credit-role">mixing · midi recording · mastering</span>
-          <span class="credit-name"><em>Sankha Cooray</em></span>
         </li>
       </ul>
     </div>
@@ -900,7 +1041,7 @@ footer .links a:hover { color: var(--text); }
 </section>
 
 <!-- ─── STUDIO ──────────────────────────────────────────── -->
-<section class="section" id="studio">
+<section class="section group" id="studio">
   <div class="section-head">
     <span class="section-num">05</span>
     <h2>In the Studio</h2>
@@ -913,28 +1054,28 @@ footer .links a:hover { color: var(--text); }
 
   <div class="tools-grid">
     <a class="tool" href="https://www.image-line.com/fl-studio/" target="_blank" rel="noopener">
-      <div class="glyph">FL</div>
+      <div class="glyph"><img src="brand/fl-studio.png" width="26" height="26" alt="FL Studio logo"></div>
       <div class="body">
         <div class="name">FL Studio</div>
         <div class="role">composition · sequencing</div>
       </div>
     </a>
     <a class="tool" href="https://www.reasonstudios.com/" target="_blank" rel="noopener">
-      <div class="glyph">R</div>
+      <div class="glyph"><svg viewBox="0 0 24 24" width="24" height="24" fill="var(--text)" role="img" aria-label="Reason Studios logo"><path d="M2.49 5.114l8.3-4.79a2.421 2.421 0 012.39-.017l.03.017 8.299 4.79c.74.427 1.2 1.212 1.211 2.065V16.79c0 .854-.451 1.645-1.184 2.08l-.027.016-8.299 4.79a2.42 2.42 0 01-2.39.017l-.03-.017-8.3-4.79a2.421 2.421 0 01-1.21-2.065V7.21c0-.855.45-1.645 1.184-2.08l.026-.016 8.3-4.79zM12 4.026L5.092 8.013v7.974L12 19.974V12l6.908-3.987z"/></svg></div>
       <div class="body">
         <div class="name">Propellerhead Reason</div>
         <div class="role">synthesis · rack routing</div>
       </div>
     </a>
     <a class="tool" href="https://www.adobe.com/products/audition.html" target="_blank" rel="noopener">
-      <div class="glyph">Au</div>
+      <div class="glyph"><svg viewBox="0 0 24 24" width="24" height="24" fill="#9999FF" role="img" aria-label="Adobe Audition logo"><path d="M19.75.3H4.25C1.9.3 0 2.2 0 4.55v14.9c0 2.35 1.9 4.25 4.25 4.25h15.5c2.35 0 4.25-1.9 4.25-4.25V4.55C24 2.2 22.1.3 19.75.3zM12.5 16.8h-2.09c-.07.011-.14-.04-.16-.11l-.82-2.39H5.71l-.76 2.36c-.02.09-.1.15-.19.14H2.88c-.11 0-.14-.06-.11-.18l3.22-9.24c.03-.1.06-.21.1-.33.05-.21.08-.42.08-.64-.01-.05.03-.1.08-.11h2.59c.07 0 .12.03.13.08l3.63 10.261c.03.109 0 .159-.1.159zm7.75.011h-1.721c-.079.01-.159-.041-.189-.11-.02-.08-.04-.171-.061-.25-.02-.07-.02-.14-.02-.21-.32.289-.71.5-1.13.619-.36.101-.739.15-1.11.15-.369 0-.74-.05-1.09-.17-.32-.109-.619-.3-.85-.55-.26-.28-.45-.61-.561-.97-.14-.461-.209-.94-.199-1.42V8.94c-.01-.06.029-.12.1-.13h1.939c.061-.01.121.03.131.1v4.731c0 .439.1.789.289 1.039.191.25.58.381 1.031.381.229 0 .459-.041.68-.121.23-.08.439-.189.63-.33V8.92c0-.07.05-.11.14-.11h1.91c.051-.01.109.03.109.08v6.16c0 .271 0 .511.011.72.01.211.021.391.03.551.02.16.029.25.039.359.012.09-.028.131-.108.131zM8.33 10.73c-.1-.31-.19-.61-.29-.92s-.19-.6-.27-.89c-.08-.28-.15-.54-.22-.78h-.02c-.09.43-.2.86-.34 1.29-.15.48-.3.98-.46 1.48-.13.51-.29.98-.44 1.4h2.54c-.06-.21-.14-.46-.23-.72-.09-.27-.18-.56-.27-.86z"/></svg></div>
       <div class="body">
         <div class="name">Adobe Audition</div>
         <div class="role">assembly · mastering</div>
       </div>
     </a>
     <a class="tool" href="https://www.steinberg.net/technology/" target="_blank" rel="noopener">
-      <div class="glyph"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+      <div class="glyph"><svg viewBox="0 0 24 24" width="24" height="24" fill="#C90827" role="img" aria-label="Steinberg logo"><path d="M19.4807 12.6291c.6422-.371.6422-1.0092 0-1.3792L14.711 8.4954c-.6422-.371-1.1952-.052-1.1952.6901v5.508c0 .741.553 1.0601 1.1952.69zm-7.4812-9.9036c5.1219 0 9.2745 4.1526 9.2745 9.2745s-4.1526 9.2745-9.2745 9.2745S2.726 17.122 2.726 12s4.1516-9.2745 9.2735-9.2745m0-2.7255C5.3834 0 .0005 5.3829.0005 12s5.3829 12 12 12 11.999-5.3829 11.999-12-5.3829-12-12-12z"/></svg></div>
       <div class="body">
         <div class="name">VST instruments &amp; effects</div>
         <div class="role">sound design</div>
@@ -943,13 +1084,13 @@ footer .links a:hover { color: var(--text); }
   </div>
 
   <p class="note">
-    Brand names are linked to their official sites. Logos &amp; press assets can be
-    swapped in later if needed.
+    Brand names are linked to their official sites. Logos are trademarks of their
+    respective owners.
   </p>
 </section>
 
 <!-- ─── RESEARCH ────────────────────────────────────────── -->
-<section class="section" id="research">
+<section class="section group" id="research">
   <div class="section-head">
     <span class="section-num">06</span>
     <h2>Music × HCI</h2>
@@ -976,6 +1117,31 @@ footer .links a:hover { color: var(--text); }
       <span class="link cool">visit</span>
     </a>
 
+    <a class="card" href="https://augmented-human-lab.github.io/kiwrious/sound-bites/" target="_blank" rel="noopener">
+      <div class="role cool">experiment · 02</div>
+      <h3>Sound Bites</h3>
+      <div class="where">Kiwrious · Augmented Human Lab · 2023</div>
+      <p>
+        A fork and spoon wired to a Kiwrious conductivity sensor turn eating
+        into sound — each bite's conductivity sets the pitch of a live
+        oscillator, played as sine, triangle, square, or saw waves.
+      </p>
+      <span class="link cool">visit · needs a Kiwrious sensor</span>
+    </a>
+
+    <a class="card" href="https://stakcos.com/itiles/midi/" target="_blank" rel="noopener">
+      <div class="role cool">experiment · 03</div>
+      <h3>iTiles MIDI</h3>
+      <div class="where">iTiles · Web MIDI + Bluetooth</div>
+      <p>
+        Plug in a MIDI keyboard and play — each note lights up a set of
+        Bluetooth iTiles in real time, across modes like Rainbow Roll,
+        Velocity Heat, Chord Bloom, and Chord Mood, which reads the chord
+        and fades the tiles to its emotional colour.
+      </p>
+      <span class="link cool">visit · needs a MIDI keyboard + iTiles</span>
+    </a>
+
     <div class="card">
       <div class="role cool">slot · reserved</div>
       <h3>More experiments</h3>
@@ -992,7 +1158,7 @@ footer .links a:hover { color: var(--text); }
 
 
 <!-- ─── PROJECTS ────────────────────────────────────────── -->
-<section class="section" id="projects">
+<section class="section group" id="projects">
   <div class="section-head">
     <span class="section-num">07</span>
     <h2>Selected Projects</h2>
@@ -1034,19 +1200,19 @@ footer .links a:hover { color: var(--text); }
       <span class="link muted">not public yet</span>
     </div>
 
-    <div class="card">
-      <img class="proj-thumb" loading="lazy" src="thumbs/gee-aruth.jpg" alt="gee-aruth preview">
-      <span class="tag muted">in the lab</span>
+    <a class="card" href="https://aruth.sankhacooray.com/" target="_blank" rel="noopener">
+      <img class="proj-thumb" loading="lazy" src="thumbs/aruth.jpg" alt="Aruth preview">
+      <span class="tag cool">live</span>
       <div class="role">web + server · translation</div>
-      <h3>gee-aruth</h3>
-      <div class="where">Gee Aruth · ගී අරුත</div>
+      <h3>Aruth</h3>
+      <div class="where">aruth.sankhacooray.com</div>
       <p>
         Paste a Sinhala song and get its literary meaning in English — a
         Claude-powered read of the lyric's sense, mood, and imagery rather than a
         stiff word-for-word gloss.
       </p>
-      <span class="link muted">not public yet</span>
-    </div>
+      <span class="link cool">visit</span>
+    </a>
 
     <div class="card">
       <img class="proj-thumb" loading="lazy" src="thumbs/voicelab.jpg" alt="voicelab preview">
@@ -1067,7 +1233,7 @@ footer .links a:hover { color: var(--text); }
 
 
 <!-- ===================== CONTACT ===================== -->
-<section class="section" id="contact">
+<section class="section group" id="contact">
   <div class="section-head">
     <span class="section-num">08</span>
     <h2>Get in touch</h2>
@@ -1093,7 +1259,7 @@ footer .links a:hover { color: var(--text); }
         </div>
         <div class="cf-field">
           <label for="cf-message">Message</label>
-          <textarea id="cf-message" name="message" rows="5" required maxlength="5000" placeholder="What's on your mind?"></textarea>
+          <textarea id="cf-message" name="message" rows="4" required maxlength="5000" placeholder="What's on your mind?"></textarea>
         </div>
         <div class="cf-hp" aria-hidden="true">
           <label for="cf-company">Company</label>
@@ -1115,7 +1281,14 @@ footer .links a:hover { color: var(--text); }
       <button class="cf-again" id="cfAgain" type="button">Send another</button>
     </div>
   </div>
+  <!-- Shared network footer · cdn.sankhacooray.com (auto-themes to this page) -->
+  <div id="scn-footer" class="page-footer"></div>
+  <script async src="https://cdn.sankhacooray.com/js/sankha-footer.js?v=20261020"
+          data-site="music.sankhacooray.com"
+          data-tagline="a music journey, in progress"></script>
 </section>
+
+</main>
 
 <script>
 (function () {
@@ -1176,14 +1349,105 @@ footer .links a:hover { color: var(--text); }
 })();
 </script>
 
-  <!-- Shared network footer · cdn.sankhacooray.com (auto-themes to this page) -->
-  <div id="scn-footer"></div>
-  <script async src="https://cdn.sankhacooray.com/js/sankha-footer.js?v=20260902"
-          data-site="music.sankhacooray.com"
-          data-tagline="a music journey, in progress"></script>
 
 <script>(function(){var r=document.documentElement,K="sc-theme",mq=window.matchMedia("(prefers-color-scheme: dark)");function eff(){try{var s=localStorage.getItem(K);if(s==="light"||s==="dark")return s;}catch(e){}return mq.matches?"dark":"light";}function wire(){var b=document.getElementById("theme-toggle");if(!b)return;b.addEventListener("click",function(){var n=eff()==="dark"?"light":"dark";try{localStorage.setItem(K,n);}catch(e){}r.setAttribute("data-theme",n);window.dispatchEvent(new CustomEvent("sc-themechange",{detail:n}));});}try{if(mq.addEventListener)mq.addEventListener("change",function(){try{if(!localStorage.getItem(K))window.dispatchEvent(new CustomEvent("sc-themechange"));}catch(e){}});}catch(e){}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",wire);else wire();})();</script>
 
+<script>
+/* Screen-fit layout + ↑/↓ paging (ui-ux rules 1, 2), from the ui-ux-style
+   skill's screen-fit.js. <body> is the scroller (rule 14). */
+(function () {
+  "use strict";
+  var scroller = document.body;
+  var topbar = document.querySelector(".site-header");
+  var root = document.getElementById("home");
+  var IGNORE = 'input, textarea, select, [role="radiogroup"], [role="slider"], [contenteditable]';
+  if (!root) return;
+  function barH() { return topbar ? topbar.offsetHeight : 0; }
+
+  if (topbar && window.ResizeObserver) {
+    new ResizeObserver(function () {
+      document.documentElement.style.setProperty("--bar-h", barH() + "px");
+    }).observe(topbar);
+  }
+
+  // Pack consecutive groups into one screen while they fit; share the
+  // leftover height evenly. Taller groups and [data-solo] stand alone.
+  function layout() {
+    var groups = [].slice.call(root.querySelectorAll(".group"));
+    var avail = scroller.clientHeight - barH();
+    // Hold the page height while groups are re-measured, so clearing their
+    // min-heights can't shrink the page and clamp the reader's scroll position.
+    var keep = scroller.scrollTop;
+    root.style.minHeight = root.offsetHeight + "px";
+    groups.forEach(function (g) { g.style.minHeight = ""; });
+    var h = groups.map(function (g) { return g.getBoundingClientRect().height; });
+    natural = h;
+    var screens = [], cur = null;
+    groups.forEach(function (g, i) {
+      var solo = g.hasAttribute("data-solo") || (cur && cur.solo);
+      if (cur && !solo && cur.sum + h[i] <= avail + 1) { cur.items.push(i); cur.sum += h[i]; }
+      else { cur = { items: [i], sum: h[i], solo: g.hasAttribute("data-solo") }; screens.push(cur); }
+    });
+    screens.forEach(function (sc) {
+      var extra = Math.max(0, avail - sc.sum) / sc.items.length;
+      sc.items.forEach(function (i, k) {
+        groups[i].style.minHeight = (h[i] + extra) + "px";
+        groups[i].classList.toggle("screen", k === 0);
+      });
+    });
+    root.style.minHeight = "";
+    if (scroller.scrollTop !== keep) scroller.scrollTop = keep;
+  }
+  var natural = [];
+  var raf = 0;
+  function relayout() { cancelAnimationFrame(raf); raf = requestAnimationFrame(layout); }
+  if (window.ResizeObserver) {
+    new ResizeObserver(relayout).observe(scroller);
+    // late content (shared footer, fonts, images) changes group heights
+    [].forEach.call(root.querySelectorAll(".group"), function (g) {
+      new ResizeObserver(function () { if (!g.style.minHeight || g.scrollHeight > parseFloat(g.style.minHeight) + 1) relayout(); }).observe(g);
+    });
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(relayout);
+  window.addEventListener("load", relayout);
+  relayout();
+
+  // ↑/↓ → next/previous screen start, or one screen inside a tall group.
+  var target = null;
+  scroller.addEventListener("scrollend", function () { target = null; });
+  function stops() {
+    return [].map.call(root.querySelectorAll(".screen"), function (el) {
+      return Math.round(el.getBoundingClientRect().top + scroller.scrollTop - barH());
+    });
+  }
+  function pageBy(dir) {
+    var pos = target != null ? target : scroller.scrollTop;
+    var step = scroller.clientHeight - barH();
+    var max = scroller.scrollHeight - scroller.clientHeight;
+    var s = stops(), dest;
+    if (dir > 0) {
+      var next = s.filter(function (t) { return t > pos + 4; })[0];
+      dest = Math.min(next != null ? next : max, pos + step);
+    } else {
+      var prev = s.filter(function (t) { return t < pos - 4; }).pop();
+      dest = Math.max(prev != null ? prev : 0, pos - step);
+    }
+    dest = Math.min(Math.max(dest, 0), max);
+    if (dest === Math.round(pos)) return;
+    target = dest;
+    scroller.scrollTo({ top: dest, behavior: "smooth" });
+  }
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
+    if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+    var t = e.target instanceof Element ? e.target : null;
+    if (t && t.closest(IGNORE)) return;
+    e.preventDefault();
+    pageBy(e.key === "ArrowDown" ? 1 : -1);
+  });
+  window.__screenFit = { relayout: relayout, layout: layout, pageBy: pageBy, natural: function () { return natural; } };
+})();
+</script>
 <script async src="https://sankhacooray.com/js/sankha-analytics.js"></script>
 </body>
 </html>
