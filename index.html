@@ -215,36 +215,8 @@ a.mini:hover{background:var(--card-hover)}
 .pop li span{display:block;font-size:12.5px;font-weight:400;color:var(--dim)}
 .pop code{font-family:var(--mono);font-size:11.5px;color:var(--gold)}
 
-/* contact + one-line footer pinned to the last screen (rules 5, 18) */
-.contact{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,4vw,56px);align-items:start}
-.contact .say{font-family:var(--serif);font-size:clamp(26px,4.6vh,44px);line-height:1.2;color:var(--text)}
-.contact .note{font-size:clamp(15.5px,2.2vh,18px)}
-.cf-field textarea{min-height:clamp(96px,17vh,200px)}
-.contact .say em{color:var(--gold)}
-.contact .note{margin-top:12px;color:var(--dim)}
-.cf-form fieldset{border:0;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:12px 14px}
-.cf-form fieldset[disabled]{opacity:.55}
-.cf-field{display:grid;gap:6px}
-.cf-field.wide{grid-column:1/-1}
-.cf-field label{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.cf-field input,.cf-field textarea{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:10px;color:var(--text);font:inherit;font-size:16px;padding:11px 14px;resize:vertical;transition:border-color .18s,box-shadow .18s}
-.cf-field input:focus,.cf-field textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft)}
-.cf-field input::placeholder,.cf-field textarea::placeholder{color:var(--muted)}
-.cf-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-.cf-submit{margin-top:14px;width:100%;height:46px;display:inline-flex;align-items:center;justify-content:center;gap:10px;border:0;border-radius:999px;background:var(--gold);color:var(--cta-fg);font:inherit;font-weight:600;font-size:15.5px;cursor:pointer;transition:background-color .18s,box-shadow .18s}
-.cf-submit:hover{background:var(--gold-hi);box-shadow:0 0 0 5px var(--gold-soft)}
-.cf-submit[disabled]{opacity:.7;cursor:progress}
-.cf-spinner{display:none;width:15px;height:15px;border:2px solid currentColor;border-top-color:transparent;border-radius:50%;animation:spin .7s linear infinite}
-.cf-submit.is-loading .cf-spinner{display:inline-block}
+/* contact (shared sankha-contact.js) + one-line footer pinned to the last screen (rules 5, 18) */
 @keyframes spin{to{transform:rotate(360deg)}}
-.cf-status{min-height:20px;margin-top:10px;font-size:14px;color:#d9534f}
-.cf-form[hidden],.cf-success[hidden]{display:none}
-.cf-success{text-align:center;padding:24px;background:var(--surface);border-radius:var(--r);box-shadow:inset 0 0 0 1px var(--line)}
-.cf-check{width:48px;height:48px;margin:0 auto 10px;border-radius:50%;display:grid;place-items:center;background:var(--gold-soft);color:var(--gold)}
-.cf-success h3{font-family:var(--serif);font-weight:400;font-size:28px}
-.cf-success p{color:var(--dim);margin-top:4px}
-.cf-again{all:unset;cursor:pointer;margin-top:14px;display:inline-flex;height:36px;padding:0 16px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--border);color:var(--dim);font-size:14.5px}
-.cf-again:hover{color:var(--text);background:var(--gold-soft)}
 
 .last{justify-content:flex-start}
 .last > .wrap:first-child{margin-top:auto}
@@ -267,7 +239,7 @@ a.mini:hover{background:var(--card-hover)}
   .hero{grid-template-columns:minmax(0,1fr);grid-template-areas:"eb" "h1" "lede" "chips" "art"}
   .hero-art{margin-top:24px}
   .ghead{grid-template-columns:minmax(0,1fr)}
-  .feature,.contact{grid-template-columns:minmax(0,1fr)}
+  .feature{grid-template-columns:minmax(0,1fr)}
   .minis{grid-template-columns:minmax(0,1fr)}
   .t-item,.t-item:nth-child(even){width:auto;margin-left:0;padding:0 0 18px 30px;text-align:left}
   .t-item + .t-item{margin-top:0}
@@ -275,8 +247,7 @@ a.mini:hover{background:var(--card-hover)}
   .timeline::before{left:5px;transform:none}
 }
 @media (max-width:600px){
-  .cards,.tools,.cf-form fieldset,.credits{grid-template-columns:minmax(0,1fr)}
-  .cf-field{grid-column:1/-1}
+  .cards,.tools,.credits{grid-template-columns:minmax(0,1fr)}
   .brand{font-size:26px}
 }
 @media (min-width:901px) and (max-height:780px){
@@ -546,49 +517,7 @@ a.mini:hover{background:var(--card-hover)}
 <!-- ─── CONTACT + FOOTER ─── -->
 <section class="group last" id="contact">
   <div class="wrap">
-    <div class="ghead"><div><h2>Get in touch</h2></div></div>
-    <div class="contact">
-      <div>
-        <p class="say">Have a project, a question, or just want to <em>say hello?</em></p>
-        <p class="note">Drop a note and it'll reach me directly.</p>
-      </div>
-      <div>
-<form class="cf-form" id="cfForm" novalidate>
-      <fieldset id="cfFields">
-        <div class="cf-field">
-          <label for="cf-name">Name</label>
-          <input id="cf-name" name="name" type="text" autocomplete="name" required maxlength="200" placeholder="Your name" />
-        </div>
-        <div class="cf-field">
-          <label for="cf-email">Email</label>
-          <input id="cf-email" name="email" type="email" autocomplete="email" required maxlength="200" placeholder="you@example.com" />
-        </div>
-        <div class="cf-field wide">
-          <label for="cf-message">Message</label>
-          <textarea id="cf-message" name="message" rows="4" required maxlength="5000" placeholder="What's on your mind?"></textarea>
-        </div>
-        <div class="cf-hp" aria-hidden="true">
-          <label for="cf-company">Company</label>
-          <input id="cf-company" name="company" type="text" tabindex="-1" autocomplete="off" />
-        </div>
-      </fieldset>
-      <button class="cf-submit" id="cfSubmit" type="submit">
-        <span class="cf-label">Send message</span>
-        <span class="cf-spinner" aria-hidden="true"></span>
-      </button>
-      <p class="cf-status" id="cfStatus" role="status" aria-live="polite"></p>
-    </form>
-<div class="cf-success" id="cfSuccess" hidden>
-      <div class="cf-check" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>
-      </div>
-      <h3>Message sent</h3>
-      <p>Thanks for reaching out &mdash; I'll get back to you soon.</p>
-      <button class="cf-again" id="cfAgain" type="button">Send another</button>
-    </div>
-  </div>
-      </div>
-    </div>
+    <div id="scn-contact" data-source="music.sankhacooray.com"></div>
   </div>
   <footer class="footer"><div class="wrap">
     <span>Music · a music journey by Sankha Cooray</span>
@@ -715,64 +644,7 @@ a.mini:hover{background:var(--card-hover)}
   label();if(mq.addEventListener)mq.addEventListener("change",label);
   b.addEventListener("click",function(){var n=eff()==="dark"?"light":"dark";try{localStorage.setItem(K,n)}catch(e){}r.setAttribute("data-theme",n);label();window.dispatchEvent(new CustomEvent("sc-themechange",{detail:n}))})})();
 </script>
-<script>
-(function () {
-  "use strict";
-  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzVh7KHZDVkO29XaSiF1zP7LqvwzPy_5yPs4GN4aAofezUaaWaSt36MAwxty_CXe_aSlQ/exec";
-  var form = document.getElementById("cfForm");
-  if (!form) return;
-  var fields = document.getElementById("cfFields");
-  var btn = document.getElementById("cfSubmit");
-  var statusEl = document.getElementById("cfStatus");
-  var success = document.getElementById("cfSuccess");
-  var again = document.getElementById("cfAgain");
-  var label = btn.querySelector(".cf-label");
-  var labelText = label ? label.textContent : "Send message";
-  function setLoading(loading) {
-    fields.disabled = loading; btn.disabled = loading;
-    btn.classList.toggle("is-loading", loading);
-    btn.setAttribute("aria-busy", loading ? "true" : "false");
-    if (label) label.textContent = loading ? "Sending…" : labelText;
-  }
-  function showError(msg) { statusEl.style.color = "#ef6b6b"; statusEl.textContent = msg; }
-  function showSuccess() {
-    statusEl.textContent = ""; form.hidden = true;
-    if (success) { success.hidden = false; success.scrollIntoView({ behavior: "smooth", block: "center" }); }
-  }
-  function resetToForm() {
-    if (success) success.hidden = true; form.reset(); form.hidden = false; statusEl.textContent = "";
-    var first = document.getElementById("cf-name");
-    if (first) setTimeout(function () { first.focus(); }, 150);
-  }
-  if (again) again.addEventListener("click", resetToForm);
-  form.addEventListener("submit", function (e) {
-    e.preventDefault(); statusEl.textContent = "";
-    if (!form.checkValidity()) { form.reportValidity(); return; }
-    var payload = {
-      name: form.elements["name"].value,
-      email: form.elements["email"].value,
-      message: form.elements["message"].value,
-      company: form.elements["company"].value,
-      userAgent: navigator.userAgent,
-      source: "music.sankhacooray.com"
-    };
-    setLoading(true);
-    fetch(APPS_SCRIPT_URL, {
-      method: "POST",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify(payload),
-      redirect: "follow"
-    })
-      .then(function (r) { return r.json(); })
-      .then(function (data) {
-        if (data && data.ok) showSuccess();
-        else showError((data && data.message) || "Something went wrong. Please try again.");
-      })
-      .catch(function () { showError("Network error — please try again, or reach me on LinkedIn."); })
-      .finally(function () { setLoading(false); });
-  });
-})();
-</script>
+<script defer src="https://cdn.sankhacooray.com/js/sankha-contact.js?v=20261025"></script>
 <script async src="https://sankhacooray.com/js/sankha-analytics.js"></script>
 </body>
 </html>
