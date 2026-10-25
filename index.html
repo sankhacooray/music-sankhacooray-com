@@ -38,716 +38,284 @@
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Atkinson+Hyperlegible+Next:wght@300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <script>(function(){try{var t=localStorage.getItem("sc-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
-
 <style>
-:root {
-  --bg: #faf7f1;
-  --surface: #ffffff;
-  --surface2: #f1ebdf;
-  --border: #d9d0c0;
-  --border-soft: #e6ddcd;
-  --text: #2a2620;
-  --text-dim: #6a6356;
-  --text-muted: #938b7c;
-  --gold: #9a6f2e;
-  --gold-dim: #c19a5b;
-  --gold-soft: rgba(154,111,46,0.10);
-  --cyan: #2b7d90;
-  --cyan-dim: #6fb3c4;
-  --cyan-soft: rgba(43,125,144,0.10);
-  --header-bg: rgba(250,247,241,0.72);
-  --cta-fg: #ffffff;
-  --radius: 12px;
-  --radius-sm: 8px;
-  --maxw: 1080px;
+/* Warm stage palette: paper and gold by day, a dark hall by night; cyan marks the HCI thread */
+:root{
+  --bg:#faf7f1; --surface:#ffffff; --surface2:#f1ebdf; --line:#e6ddcd; --border:#d9d0c0;
+  --text:#2a2620; --dim:#6a6356; --muted:#8f877a;
+  --gold:#9a6f2e; --gold-hi:#b0843f; --gold-dim:#c19a5b; --gold-soft:rgba(154,111,46,.10);
+  --cyan:#2b7d90; --cyan-soft:rgba(43,125,144,.10);
+  --bar:rgba(250,247,241,.78); --cta-fg:#ffffff; --card-hover:#f7f1e6;
+  --serif:"Instrument Serif",Georgia,serif; --sans:"Atkinson Hyperlegible Next",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --maxw:1180px; --r:14px;
 }
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0b0a0d; --surface:#16141b; --surface2:#1e1b25; --line:#24202b; --border:#2a2632;
+  --text:#f0ebe0; --dim:#a8a195; --muted:#777064;
+  --gold:#d4a574; --gold-hi:#e2b98c; --gold-dim:#a07d4f; --gold-soft:rgba(212,165,116,.10);
+  --cyan:#6bc3d6; --cyan-soft:rgba(107,195,214,.10);
+  --bar:rgba(11,10,13,.74); --cta-fg:#0b0a0d; --card-hover:#1c1922; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0b0a0d; --surface:#16141b; --surface2:#1e1b25; --line:#24202b; --border:#2a2632;
+  --text:#f0ebe0; --dim:#a8a195; --muted:#777064;
+  --gold:#d4a574; --gold-hi:#e2b98c; --gold-dim:#a07d4f; --gold-soft:rgba(212,165,116,.10);
+  --cyan:#6bc3d6; --cyan-soft:rgba(107,195,214,.10);
+  --bar:rgba(11,10,13,.74); --cta-fg:#0b0a0d; --card-hover:#1c1922; color-scheme:dark}
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0b0a0d;
-    --surface: #16141b;
-    --surface2: #1e1b25;
-    --border: #2a2632;
-    --border-soft: #221f29;
-    --text: #f0ebe0;
-    --text-dim: #a09a8e;
-    --text-muted: #6a6356;
-    --gold: #d4a574;
-    --gold-dim: #a07d4f;
-    --gold-soft: rgba(212,165,116,0.08);
-    --cyan: #6bc3d6;
-    --cyan-dim: #4a8a99;
-    --cyan-soft: rgba(107,195,214,0.08);
-    --header-bg: rgba(11,10,13,0.7);
-    --cta-fg: #0b0a0d;
-  }
-}
+*{box-sizing:border-box}
+/* rule 14: body is the scroller, no bounce, no white edge */
+html{height:100%;overflow:hidden;background:var(--bg);overscroll-behavior:none}
+body{height:100%;margin:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:none;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,p,ul,figure{margin:0}
+ul{padding:0;list-style:none}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:max(24px,env(safe-area-inset-left,0px))}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 
-:root[data-theme="dark"] {
-  --bg: #0b0a0d;
-  --surface: #16141b;
-  --surface2: #1e1b25;
-  --border: #2a2632;
-  --border-soft: #221f29;
-  --text: #f0ebe0;
-  --text-dim: #a09a8e;
-  --text-muted: #6a6356;
-  --gold: #d4a574;
-  --gold-dim: #a07d4f;
-  --gold-soft: rgba(212,165,116,0.08);
-  --cyan: #6bc3d6;
-  --cyan-dim: #4a8a99;
-  --cyan-soft: rgba(107,195,214,0.08);
-  --header-bg: rgba(11,10,13,0.7);
-  --cta-fg: #0b0a0d;
-}
+/* rule 24: ambient particles behind everything */
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;display:block}
+main{position:relative;z-index:1}
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+/* app bar: full width (19), no bottom border (7), current topic as a pill (22) */
+.topbar{position:sticky;top:0;z-index:20;background:var(--bar);backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);padding-top:env(safe-area-inset-top,0px)}
+.topbar .bar{display:flex;align-items:center;gap:18px;height:62px;padding-inline:max(24px,env(safe-area-inset-left,0px))}
+.brand{font-family:var(--serif);font-size:30px;line-height:1;color:var(--gold);letter-spacing:-.01em}
+.nav{display:flex;gap:4px;margin-left:8px}
+.nav a{color:var(--dim);font-size:15px;padding:6px 12px;border-radius:999px;transition:background-color .25s ease,color .25s ease}
+.nav a:hover{color:var(--text);background:var(--gold-soft)}
+.nav a[aria-current="true"]{color:var(--text);background:var(--gold-soft);font-weight:600}
+.spacer{flex:1}
+.iconbtn{all:unset;cursor:pointer;width:38px;height:38px;border-radius:999px;display:grid;place-items:center;color:var(--dim);transition:background-color .2s,color .2s}
+.iconbtn:hover{color:var(--text);background:var(--gold-soft)}
+/* rule 23: the toggle shows the theme it switches TO */
+.ico-sun{display:none}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ico-sun{display:block}:root:not([data-theme="light"]) .ico-moon{display:none}}
+:root[data-theme="dark"] .ico-sun{display:block}:root[data-theme="dark"] .ico-moon{display:none}
+/* rules 10, 12: one primary CTA in the theme colour */
+.cta{display:inline-flex;align-items:center;height:40px;padding:0 20px;border-radius:999px;background:var(--gold);color:var(--cta-fg);font-weight:600;font-size:15px;white-space:nowrap;transition:background-color .18s,box-shadow .18s}
+.cta:hover{background:var(--gold-hi);box-shadow:0 0 0 5px var(--gold-soft),0 8px 22px -8px var(--gold)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 
-/* No overscroll bounce (ui-ux rule 14): the page scrolls inside <body>. */
-html { height: 100%; overflow: hidden; background: var(--bg); overscroll-behavior: none; }
-body { height: 100%; overflow-y: auto; overflow-x: hidden; overscroll-behavior: none; scroll-behavior: smooth; }
+/* screen-fit groups (rules 1, 4, 5) */
+.group{display:flex;flex-direction:column;justify-content:center;padding-block:clamp(16px,3vh,44px);scroll-margin-top:var(--bar-h,62px)}
+.group > .wrap{width:100%}
+.ghead{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:8px 32px;margin-bottom:clamp(16px,3vh,32px)}
+.ghead .eyebrow{margin-bottom:6px}
+.ghead h2{font-family:var(--serif);font-weight:400;font-size:clamp(32px,5.4vh,50px);line-height:1.04;letter-spacing:-.01em}
+.ghead p{margin-top:8px;color:var(--dim);max-width:64ch;font-size:clamp(15.5px,2.2vh,18px)}
+.ghead p em{color:var(--text)}
+.ghead p .cy{color:var(--cyan)}
+.ctx{font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.ctx b{color:var(--gold);font-weight:500}
+.eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
 
-body {
-  font-family: 'Atkinson Hyperlegible Next', system-ui, sans-serif;
-  font-size: 17px;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.65;
-  -webkit-font-smoothing: antialiased;
-  background-image:
-    radial-gradient(800px 400px at 20% -10%, rgba(212,165,116,0.06), transparent 60%),
-    radial-gradient(700px 500px at 100% 20%, rgba(107,195,214,0.04), transparent 60%);
-}
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);grid-template-areas:"eb eb" "h1 h1" "lede art" "chips art";column-gap:clamp(24px,4vw,64px);align-content:center}
+.hero .eyebrow{grid-area:eb;margin-bottom:clamp(10px,2.4vh,22px)}
+.hero h1{grid-area:h1;font-family:var(--serif);font-weight:400;font-size:clamp(40px,min(7.2vw,11vh),96px);line-height:1.02;letter-spacing:-.02em;margin-bottom:clamp(14px,3vh,30px)}
+.hero h1 em{color:var(--gold)}
+.hero .lede{grid-area:lede;align-self:end;color:var(--dim);font-size:clamp(17px,2.7vh,21px);max-width:34ch}
+.hero .chips{grid-area:chips;align-self:start;margin-top:clamp(14px,2.6vh,24px)}
+.hero-art{grid-area:art;align-self:center}
+.hero-art svg{display:block;width:100%;height:auto;max-height:min(46vh,400px)}
+.hero-art .kb-case{fill:var(--surface2)}
+.hero-art .whites rect{fill:#f6f1e7;stroke:#cfc5b3;stroke-width:1}
+.hero-art .whites rect.on{fill:#ecd6b0;stroke:var(--gold);stroke-width:2}
+.hero-art .blacks rect{fill:#1d1a17}
+.hero-art .key-labels text{font-family:var(--mono);font-size:15px;font-weight:600;fill:#8a5f22;text-anchor:middle}
+.hero-art .rise path{fill:none;stroke:var(--gold-dim);stroke-width:1.5;stroke-dasharray:3 4}
+.hero-art .rise circle{fill:var(--gold)}
+.hero-art .code rect{fill:var(--surface);stroke:var(--cyan);stroke-opacity:.55;stroke-width:1.2}
+.hero-art .code text{font-family:var(--mono);font-size:15px;fill:var(--text)}
+.hero-art .code .fn{fill:var(--cyan)}.hero-art .code .str{fill:var(--gold)}
+.hero-art .code .dim{fill:var(--dim);font-size:14px}.hero-art .code .hz{fill:var(--cyan);font-size:14px}
+.hero-art .wave path{fill:none;stroke:var(--cyan);stroke-width:2;stroke-linecap:round}
 
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+/* chips: one size for every same-kind chip (rule 8) */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;height:28px;padding:0 12px;border-radius:999px;font-size:13.5px;color:var(--dim);background:var(--surface);box-shadow:inset 0 0 0 1px var(--line);white-space:nowrap}
+.chip b{color:var(--text);font-weight:600;margin-right:5px}
 
-a { color: inherit; text-decoration: none; }
+/* journey: two-sided timeline, sides staggered so neither half is empty (rules 3, 25) */
+.timeline{position:relative}
+.timeline::before{content:"";position:absolute;left:50%;top:6px;bottom:6px;width:1px;transform:translateX(-50%);background:linear-gradient(180deg,var(--gold),var(--cyan));opacity:.45}
+.t-item{position:relative;width:50%;padding:0 44px clamp(10px,1.8vh,22px) 0;text-align:right}
+.t-item:nth-child(even){margin-left:50%;padding:0 0 clamp(10px,1.8vh,22px) 44px;text-align:left}
+.t-item + .t-item{margin-top:-46px}
+.t-item::before{content:"";position:absolute;top:7px;right:-5px;width:10px;height:10px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px var(--bg),0 0 0 5px var(--gold-dim)}
+.t-item:nth-child(even)::before{right:auto;left:-5px}
+.t-item.hci::before{background:var(--cyan);box-shadow:0 0 0 4px var(--bg),0 0 0 5px var(--cyan)}
+.t-year{font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;color:var(--gold)}
+.t-item.hci .t-year{color:var(--cyan)}
+.t-title{font-family:var(--serif);font-size:clamp(21px,3vh,26px);line-height:1.2;margin:2px 0 4px}
+.t-body{color:var(--dim);font-size:clamp(14.5px,2vh,16px);line-height:1.5;max-width:46ch;display:inline-block}
 
-/* ─── Header ──────────────────────────────────────────── */
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  background: var(--header-bg);
-}
-.site-header .inner {
-  max-width: var(--maxw);
-  margin: 0 auto;
-  padding: 12px 28px;
-  display: flex;
-  align-items: center;
-  gap: 28px;
-}
-.brand {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-}
-.brand-mark {
-  font-family: 'Instrument Serif', serif;
-  font-size: 30px;
-  color: var(--gold);
-  letter-spacing: -0.5px;
-}
-.nav {
-  margin-left: auto;
-  display: flex;
-  gap: 24px;
-  font-size: 16px;
-  color: var(--text-dim);
-}
-.nav a:hover { color: var(--text); }
+/* feature: video | text, equal height columns (rule 3) */
+.feature{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(20px,3vw,40px);align-items:stretch}
+.video{position:relative;aspect-ratio:16/9;width:min(100%,calc(44vh * 16 / 9));align-self:center;justify-self:start;border-radius:var(--r);overflow:hidden;background:#000;box-shadow:0 1px 2px #0000000d,0 18px 40px -24px #00000080}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.panel{display:flex;flex-direction:column;gap:clamp(8px,1.6vh,14px);justify-content:center}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+.panel h3{font-family:var(--serif);font-weight:400;font-size:clamp(26px,4vh,36px);line-height:1.1}
+.panel .where{font-size:14px;color:var(--muted)}
+.panel p{color:var(--dim);font-size:clamp(15px,2.05vh,17px)}
+.credits{display:grid;grid-template-columns:repeat(var(--c,2),minmax(0,1fr));gap:10px 18px}
+.credits li{display:flex;flex-direction:column;gap:1px}
+.credits .cr{font-family:var(--mono);font-size:11px;letter-spacing:.03em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.credits .nm{font-size:15px;color:var(--text)}
+.credits .nm.me{color:var(--gold)}
 
-.bar-cta {
-  flex: 0 0 auto;
-  display: inline-flex;
-  align-items: center;
-  height: 38px;
-  padding: 0 18px;
-  border-radius: 999px;
-  background: var(--gold);
-  color: var(--cta-fg);
-  font-size: 15px;
-  font-weight: 600;
-  box-shadow: 0 0 0 0 var(--gold-soft);
-  transition: background .18s, box-shadow .18s;
-}
-.bar-cta:hover { background: var(--gold-dim); box-shadow: 0 0 0 6px var(--gold-soft), 0 6px 22px var(--gold-soft); }
-.theme-toggle { flex:0 0 auto; width:38px; height:38px; display:grid; place-items:center; border-radius:10px; border:1px solid var(--border); background:transparent; color:var(--text-dim); cursor:pointer; transition:color .18s,border-color .18s,background .18s; }
-.theme-toggle:hover { color:var(--gold); border-color:var(--gold-dim); background:var(--surface2); }
-.theme-toggle svg { display:block; }
-.theme-toggle .icon-sun { display:none; }
-.theme-toggle .icon-moon { display:block; }
-@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .theme-toggle .icon-sun{display:block;} :root:not([data-theme="light"]) .theme-toggle .icon-moon{display:none;} }
-:root[data-theme="dark"] .theme-toggle .icon-sun{display:block;}
-:root[data-theme="dark"] .theme-toggle .icon-moon{display:none;}
-:root[data-theme="light"] .theme-toggle .icon-sun{display:none;}
-:root[data-theme="light"] .theme-toggle .icon-moon{display:block;}
+/* small concert cards under the stage feature */
+.minis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:clamp(14px,2.6vh,24px)}
+.mini{background:var(--surface);border-radius:12px;padding:clamp(12px,2vh,18px) 18px;box-shadow:inset 0 0 0 1px var(--line);transition:background-color .2s}
+a.mini:hover{background:var(--card-hover)}
+.mini .kicker{font-size:11.5px}
+.mini h4{margin:3px 0 2px;font-family:var(--serif);font-weight:400;font-size:clamp(20px,2.8vh,24px);line-height:1.15}
+.mini p{color:var(--dim);font-size:14.5px;line-height:1.45}
+.mini .soon{display:block;margin-top:6px;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.mini .go{display:block;margin-top:6px;font-weight:600;font-size:14px;color:var(--gold)}
 
-@media (max-width: 900px) {
-  .nav { display: none; }
-  .bar-cta { margin-left: auto; }
-}
+/* studio strip: the tools behind the compositions */
+.tools{display:grid;grid-template-columns:auto repeat(4,minmax(0,1fr));gap:12px;align-items:stretch;margin-top:clamp(14px,2.6vh,24px)}
+.tools .lbl{align-self:center;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-right:6px;white-space:nowrap}
+.tool{display:flex;align-items:center;gap:12px;background:var(--surface);border-radius:12px;padding:10px 14px;box-shadow:inset 0 0 0 1px var(--line);transition:background-color .2s;min-width:0}
+.tool:hover{background:var(--card-hover)}
+.tool .glyph{flex:none;width:36px;height:36px;border-radius:9px;background:var(--surface2);display:grid;place-items:center}
+.tool .glyph svg,.tool .glyph img{width:24px;height:24px}
+.tool .name{font-size:14.5px;font-weight:600;line-height:1.25}
+.tool .role{font-size:12.5px;color:var(--muted);line-height:1.3}
 
-/* ─── Hero ────────────────────────────────────────────── */
-.hero {
-  max-width: var(--maxw);
-  margin: 0 auto;
-  padding-inline: 28px;
-  display: grid !important;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-  grid-template-areas: "eb eb" "h1 h1" "lede art" "meta art";
-  align-content: center;
-  column-gap: clamp(24px, 4vw, 56px);
-}
-.hero-text { display: contents; }
-.hero .eyebrow { grid-area: eb; }
-.hero h1 { grid-area: h1; }
-.hero .lede { grid-area: lede; align-self: end; }
-.hero .meta { grid-area: meta; align-self: start; }
-.hero-art { grid-area: art; align-self: center; }
-.hero-art { margin: 0; }
-.hero-art svg { display: block; width: 100%; height: auto; max-height: min(52vh, 420px); }
-.hero-art .kb-case { fill: var(--surface2); }
-/* a keyboard looks the same in both themes: ivory and black keys */
-.hero-art .whites rect { fill: #f6f1e7; stroke: #cfc5b3; stroke-width: 1; }
-.hero-art .whites rect.on { fill: #ecd6b0; stroke: var(--gold); stroke-width: 2; }
-.hero-art .blacks rect { fill: #1d1a17; }
-.hero-art .key-labels text { font-family: 'JetBrains Mono', monospace; font-size: 15px; font-weight: 600; fill: #8a5f22; text-anchor: middle; }
-.hero-art .rise path { fill: none; stroke: var(--gold-dim); stroke-width: 1.5; stroke-dasharray: 3 4; }
-.hero-art .rise circle { fill: var(--gold); }
-.hero-art .code rect { fill: var(--surface); stroke: var(--cyan-dim); stroke-width: 1.2; }
-.hero-art .code text { font-family: 'JetBrains Mono', monospace; font-size: 15px; fill: var(--text); }
-.hero-art .code .fn { fill: var(--cyan); }
-.hero-art .code .str { fill: var(--gold); }
-.hero-art .code .dim { fill: var(--text-dim); font-size: 14px; }
-.hero-art .code .hz { fill: var(--cyan); font-size: 14px; }
-.hero-art .wave path { fill: none; stroke: var(--cyan); stroke-width: 2; stroke-linecap: round; }
-@media (max-width: 760px) {
-  .hero { grid-template-columns: 1fr; grid-template-areas: "eb" "h1" "lede" "meta" "art"; grid-template-rows: none; }
-  .hero-art { margin-top: 24px; }
-  .hero-art svg { max-height: 260px; }
-}
-.hero .eyebrow {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  color: var(--gold);
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: clamp(12px, 3vh, 24px);
-}
-.hero h1 {
-  font-family: 'Instrument Serif', serif;
-  font-weight: 400;
-  font-size: clamp(38px, min(7vw, 10vh), 84px);
-  line-height: 1.05;
-  letter-spacing: -1.5px;
-  color: var(--text);
-  margin-bottom: clamp(14px, 3.5vh, 28px);
-}
-.hero h1 em {
-  color: var(--gold);
-  font-style: italic;
-}
-.hero .lede {
-  font-size: clamp(17px, 2.8vh, 21px);
-  color: var(--text-dim);
-  max-width: 640px;
-  margin-bottom: clamp(18px, 4.5vh, 40px);
-}
-.hero .meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 14px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  color: var(--text-muted);
-}
-.hero .meta span::before {
-  content: "◦";
-  margin-right: 10px;
-  color: var(--gold-dim);
-}
+/* project cards (rules 20, 21, 25, 26) */
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.card{position:relative;display:flex;flex-direction:column;background:var(--surface);border-radius:var(--r);overflow:hidden;box-shadow:0 1px 2px #0000000d,0 12px 30px -22px #0000006b,inset 0 0 0 1px var(--line);transition:background-color .2s}
+.card:hover{background:var(--card-hover)}
+/* thumbnails scale with screen height so two rows of cards fit one screen (rules 1, 4) */
+.art{position:relative;aspect-ratio:800/420;background:var(--surface2);overflow:hidden}
+.art img{display:block;width:100%;height:100%;object-fit:cover}
+.ctop{display:flex;align-items:center;gap:10px}
+.status{margin-left:auto;display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:999px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;background:var(--surface2);color:var(--muted)}
+.status.live{background:var(--cyan-soft)}
+.status.live{color:var(--cyan)}
+.status.live::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--cyan)}
+.cbody{display:flex;flex-direction:column;gap:6px;padding:clamp(12px,1.9vh,16px) 18px clamp(12px,1.9vh,16px);flex:1}
+.card h3{font-size:17.5px;font-weight:600;line-height:1.25}
+.card p{color:var(--dim);font-size:clamp(14px,1.9vh,15px);line-height:1.5}
+.cfoot{margin-top:auto;padding-top:4px;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);min-width:0}
+.cfoot .kind{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}
+.open{font-weight:600;color:var(--gold);white-space:nowrap}
+.open:hover{text-decoration:underline}
+.later{white-space:nowrap}
+.parts{all:unset;display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 10px;border-radius:999px;font-size:12.5px;color:var(--dim);box-shadow:inset 0 0 0 1px var(--line);cursor:help;white-space:nowrap}
+.parts svg{width:13px;height:13px;color:var(--gold)}
+.pop{position:absolute;top:0;left:0;right:0;aspect-ratio:800/420;z-index:5;display:flex;flex-direction:column;justify-content:center;padding:12px 18px;overflow:hidden;background:color-mix(in srgb,var(--surface) 62%,transparent);backdrop-filter:blur(14px) saturate(1.3);-webkit-backdrop-filter:blur(14px) saturate(1.3);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .3s ease,visibility 0s linear .3s}
+.parts:hover + .pop,.parts:focus + .pop,.parts.on + .pop{opacity:1;visibility:visible;transition:opacity .3s ease .25s,visibility 0s linear .25s}
+.pop b{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:6px}
+.pop ul{display:flex;flex-direction:column;gap:6px}
+.pop li{font-size:14px;line-height:1.3;font-weight:600}
+.pop li span{display:block;font-size:12.5px;font-weight:400;color:var(--dim)}
+.pop code{font-family:var(--mono);font-size:11.5px;color:var(--gold)}
 
-/* ─── Section base ────────────────────────────────────── */
-.section {
-  max-width: var(--maxw);
-  margin: 0 auto;
-  padding-inline: 28px;
-}
+/* contact + one-line footer pinned to the last screen (rules 5, 18) */
+.contact{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,4vw,56px);align-items:start}
+.contact .say{font-family:var(--serif);font-size:clamp(26px,4.6vh,44px);line-height:1.2;color:var(--text)}
+.contact .note{font-size:clamp(15.5px,2.2vh,18px)}
+.cf-field textarea{min-height:clamp(96px,17vh,200px)}
+.contact .say em{color:var(--gold)}
+.contact .note{margin-top:12px;color:var(--dim)}
+.cf-form fieldset{border:0;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:12px 14px}
+.cf-form fieldset[disabled]{opacity:.55}
+.cf-field{display:grid;gap:6px}
+.cf-field.wide{grid-column:1/-1}
+.cf-field label{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.cf-field input,.cf-field textarea{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:10px;color:var(--text);font:inherit;font-size:16px;padding:11px 14px;resize:vertical;transition:border-color .18s,box-shadow .18s}
+.cf-field input:focus,.cf-field textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft)}
+.cf-field input::placeholder,.cf-field textarea::placeholder{color:var(--muted)}
+.cf-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.cf-submit{margin-top:14px;width:100%;height:46px;display:inline-flex;align-items:center;justify-content:center;gap:10px;border:0;border-radius:999px;background:var(--gold);color:var(--cta-fg);font:inherit;font-weight:600;font-size:15.5px;cursor:pointer;transition:background-color .18s,box-shadow .18s}
+.cf-submit:hover{background:var(--gold-hi);box-shadow:0 0 0 5px var(--gold-soft)}
+.cf-submit[disabled]{opacity:.7;cursor:progress}
+.cf-spinner{display:none;width:15px;height:15px;border:2px solid currentColor;border-top-color:transparent;border-radius:50%;animation:spin .7s linear infinite}
+.cf-submit.is-loading .cf-spinner{display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+.cf-status{min-height:20px;margin-top:10px;font-size:14px;color:#d9534f}
+.cf-form[hidden],.cf-success[hidden]{display:none}
+.cf-success{text-align:center;padding:24px;background:var(--surface);border-radius:var(--r);box-shadow:inset 0 0 0 1px var(--line)}
+.cf-check{width:48px;height:48px;margin:0 auto 10px;border-radius:50%;display:grid;place-items:center;background:var(--gold-soft);color:var(--gold)}
+.cf-success h3{font-family:var(--serif);font-weight:400;font-size:28px}
+.cf-success p{color:var(--dim);margin-top:4px}
+.cf-again{all:unset;cursor:pointer;margin-top:14px;display:inline-flex;height:36px;padding:0 16px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--border);color:var(--dim);font-size:14.5px}
+.cf-again:hover{color:var(--text);background:var(--gold-soft)}
 
-/* Screen-fit groups (ui-ux rules 1, 2, 5): each section is a group; the
-   script packs groups into screens and shares out the leftover height. */
-.group {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-block: clamp(16px, 3vh, 48px);
-  scroll-margin-top: var(--bar-h, 74px);
-}
-.group > .section-head { margin-bottom: clamp(18px, 3.6vh, 40px); }
-/* Footer pinned to the bottom of the last screen; content above stays centred. */
-.group:last-child > .section-head { margin-top: auto; }
-.group:last-child > .page-footer { margin-top: auto; padding-top: clamp(12px, 2.5vh, 32px); }
-.page-footer .scn-inner { padding-top: 12px; padding-bottom: 8px; }
-.page-footer .scn-inner { padding-inline: 0; }
-.section-head {
-  display: flex;
-  align-items: baseline;
-  gap: 16px;
-  margin-bottom: 40px;
-}
-.section-num {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  color: var(--text-muted);
-  letter-spacing: 1px;
-}
-.section-head .tag { align-self: center; }
-.section h2 {
-  font-family: 'Instrument Serif', serif;
-  font-weight: 400;
-  font-size: 40px;
-  letter-spacing: -0.5px;
-}
+.last{justify-content:flex-start}
+.last > .wrap:first-child{margin-top:auto}
+.footer{margin-top:auto;padding-top:clamp(18px,4vh,44px)}
+.footer .wrap{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px 16px;font-size:14px;color:var(--muted)}
+.footer a{color:var(--dim)}
+.footer a:hover{color:var(--gold)}
+.info{all:unset;cursor:help;width:20px;height:20px;border-radius:50%;display:inline-grid;place-items:center;font-size:12px;font-family:var(--serif);font-style:italic;box-shadow:inset 0 0 0 1px var(--border);color:var(--dim);position:relative;z-index:41}
+.glass{position:fixed;inset:0;z-index:40;display:grid;place-items:center;padding:24px;background:color-mix(in srgb,var(--bg) 55%,transparent);backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .45s ease,visibility 0s linear .45s}
+.glass.on{opacity:1;visibility:visible;transition:opacity .45s ease,visibility 0s}
+.glass .msg{max-width:52ch;font-size:17px;line-height:1.6;color:var(--text)}
 
-/* ─── About ───────────────────────────────────────────── */
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
+@media (max-width:1000px){
+  .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tools{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tools .lbl{grid-column:1/-1}
 }
-.about-grid p {
-  font-size: clamp(17px, 2.6vh, 22px);
-  color: var(--text-dim);
+@media (max-width:900px){
+  .nav{display:none}
+  .hero{grid-template-columns:minmax(0,1fr);grid-template-areas:"eb" "h1" "lede" "chips" "art"}
+  .hero-art{margin-top:24px}
+  .ghead{grid-template-columns:minmax(0,1fr)}
+  .feature,.contact{grid-template-columns:minmax(0,1fr)}
+  .minis{grid-template-columns:minmax(0,1fr)}
+  .t-item,.t-item:nth-child(even){width:auto;margin-left:0;padding:0 0 18px 30px;text-align:left}
+  .t-item + .t-item{margin-top:0}
+  .t-item::before,.t-item:nth-child(even)::before{left:0;right:auto}
+  .timeline::before{left:5px;transform:none}
 }
-.about-grid p + p { margin-top: clamp(12px, 2.4vh, 22px); }
-.about-grid strong { color: var(--text); font-weight: 500; }
-.about-grid .accent { color: var(--gold); }
-
-@media (max-width: 720px) {
-  .about-grid { grid-template-columns: 1fr; gap: 24px; }
+@media (max-width:600px){
+  .cards,.tools,.cf-form fieldset,.credits{grid-template-columns:minmax(0,1fr)}
+  .cf-field{grid-column:1/-1}
+  .brand{font-size:26px}
 }
-
-/* ─── Timeline ────────────────────────────────────────── */
-.timeline {
-  position: relative;
-  padding-left: 24px;
+@media (min-width:901px) and (max-height:780px){
+  .cards{gap:12px}
+  .cbody{gap:4px;padding:10px 16px 11px}
+  .card h3{font-size:16px}
+  .card p{font-size:14px;line-height:1.45}
+  .ghead{margin-bottom:12px}
+  .ghead p{font-size:15px;line-height:1.5}
 }
-.timeline::before {
-  content: "";
-  position: absolute;
-  left: 4px;
-  top: 8px;
-  bottom: 8px;
-  width: 1px;
-  background: linear-gradient(180deg, var(--gold) 0%, var(--cyan) 100%);
-  opacity: 0.4;
-}
-.t-item {
-  position: relative;
-  padding-bottom: clamp(14px, 2.2vh, 36px);
-}
-.t-item::before {
-  content: "";
-  position: absolute;
-  left: -24px;
-  top: 8px;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--gold);
-  box-shadow: 0 0 0 4px var(--bg), 0 0 0 5px var(--gold-dim);
-}
-.t-item.research::before {
-  background: var(--cyan);
-  box-shadow: 0 0 0 4px var(--bg), 0 0 0 5px var(--cyan-dim);
-}
-.t-year {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  color: var(--gold);
-  letter-spacing: 1px;
-  margin-bottom: 6px;
-}
-.t-item.research .t-year { color: var(--cyan); }
-.t-body a { color: var(--gold); border-bottom: 1px solid currentColor; white-space: nowrap; }
-.t-body a:hover { opacity: .8; }
-.t-title {
-  font-family: 'Instrument Serif', serif;
-  font-size: 24px;
-  margin-bottom: 4px;
-}
-.t-body {
-  font-size: 16px;
-  color: var(--text-dim);
-  max-width: 560px;
-}
-
-/* Alternating two-sided timeline on wider screens */
-@media (min-width: 761px) {
-  .timeline { padding-left: 0; }
-  .timeline::before { left: 50%; transform: translateX(-50%); }
-  .t-item {
-    width: 50%;
-    box-sizing: border-box;
-    padding-right: 48px;
-    text-align: right;
-  }
-  .t-item::before { left: auto; right: -4.5px; }
-  .t-item .t-body { margin-left: auto; }
-  .t-item:nth-child(even) {
-    margin-left: 50%;
-    padding-right: 0;
-    padding-left: 48px;
-    text-align: left;
-  }
-  .t-item:nth-child(even)::before { right: auto; left: -4.5px; }
-  .t-item:nth-child(even) .t-body { margin-left: 0; }
-  .t-item + .t-item { margin-top: -72px; }
-}
-
-/* ─── Card grids ──────────────────────────────────────── */
-/* Cards that stand on a screen of their own scale with its height, but keep
-   breathing room (ui-ux rule 4). */
-@media (min-width: 901px) {
-  #stage-concerts .card-grid { min-height: min(46vh, 440px); }
-  #stage-concerts .card { display: flex; flex-direction: column; justify-content: center; padding: clamp(20px, 3.4vh, 40px) clamp(20px, 2vw, 30px); }
-  #stage-concerts .card h3 { font-size: clamp(22px, 3.2vh, 30px); }
-  #stage-concerts .card p { font-size: clamp(15px, 2.2vh, 19px); }
-  #studio .tool { min-height: clamp(84px, 15vh, 150px); padding: clamp(16px, 2.6vh, 28px); }
-  #studio .tool .glyph { width: clamp(36px, 6vh, 54px); height: clamp(36px, 6vh, 54px); }
-  #studio .tool .glyph svg, #studio .tool .glyph img { width: 66%; height: 66%; }
-  #studio .tool .name { font-size: clamp(16px, 2.3vh, 20px); }
-  #projects .proj-thumb { aspect-ratio: 800 / 360; }
-}
-#research .card-grid, #projects .card-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-@media (min-width: 1001px) {
-  #research .card, #projects .card { padding: clamp(14px, 2.4vh, 22px) 18px; }
-  #research .card p, #projects .card p { font-size: clamp(14px, 1.9vh, 16px); line-height: 1.55; }
-  #projects .proj-thumb { width: calc(100% + 36px); margin: calc(-1 * clamp(14px, 2.4vh, 22px)) -18px 14px; }
-}
-@media (max-width: 1000px) { #research .card-grid, #projects .card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 600px)  { #research .card-grid, #projects .card-grid { grid-template-columns: 1fr; } }
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 16px;
-}
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border-soft);
-  border-radius: var(--radius);
-  padding: 22px;
-  overflow: hidden;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-.card:hover {
-  border-color: var(--border);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
-}
-.proj-thumb {
-  display: block;
-  width: calc(100% + 44px);
-  max-width: none;
-  aspect-ratio: 800 / 420;
-  object-fit: cover;
-  object-position: top center;
-  margin: -22px -22px 18px;
-  border-radius: var(--radius) var(--radius) 0 0;
-}
-.card .role {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  color: var(--gold);
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-}
-.card .role.cool { color: var(--cyan); }
-.card h3 {
-  font-family: 'Instrument Serif', serif;
-  font-size: 24px;
-  font-weight: 400;
-  margin-bottom: 6px;
-  letter-spacing: -0.2px;
-}
-.card .where {
-  font-size: 15px;
-  color: var(--text-muted);
-  margin-bottom: 12px;
-}
-.card p {
-  font-size: 16px;
-  color: var(--text-dim);
-}
-.card .link {
-  margin-top: 14px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  color: var(--gold);
-  letter-spacing: 1px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-.card .link.cool { color: var(--cyan); }
-.card .link::after { content: "→"; transition: transform 0.2s; }
-.card .link:hover::after { transform: translateX(3px); }
-.card .link.muted {
-  color: var(--text-muted);
-  pointer-events: none;
-}
-.card .link.muted::after { content: "·"; }
-
-/* ─── Tools ───────────────────────────────────────────── */
-.tools-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 12px;
-}
-.tool {
-  background: var(--surface);
-  border: 1px solid var(--border-soft);
-  border-radius: var(--radius-sm);
-  padding: 18px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  transition: border-color 0.2s, background 0.2s;
-}
-.tool:hover {
-  border-color: var(--gold-dim);
-  background: var(--surface2);
-}
-.tool .glyph {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  background: var(--surface2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Instrument Serif', serif;
-  font-size: 20px;
-  color: var(--gold);
-  flex-shrink: 0;
-}
-.tool .body { flex: 1; min-width: 0; }
-.tool .name {
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--text);
-  margin-bottom: 2px;
-}
-.tool .role {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  color: var(--text-muted);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-.note {
-  margin-top: 24px;
-  font-size: 15px;
-  color: var(--text-muted);
-  font-style: italic;
-  padding-left: 12px;
-  border-left: 2px solid var(--border);
-}
-
-/* ─── Compositions / video ───────────────────────────── */
-.composition {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: 36px;
-  align-items: start;
-}
-.video-frame {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  border-radius: var(--radius);
-  overflow: hidden;
-  border: 1px solid var(--border);
-  background: #000;
-}
-.video-frame iframe {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
-}
-.comp-meta .role {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  color: var(--gold);
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-}
-.comp-meta h3 {
-  font-family: 'Instrument Serif', serif;
-  font-size: 30px;
-  font-weight: 400;
-  letter-spacing: -0.3px;
-  margin-bottom: 6px;
-}
-.comp-meta .where {
-  font-size: 15px;
-  color: var(--text-muted);
-  margin-bottom: 18px;
-}
-.comp-meta p {
-  font-size: 16px;
-  color: var(--text-dim);
-  margin-bottom: 18px;
-}
-.credits {
-  list-style: none;
-  display: grid;
-  gap: 10px;
-}
-.credits li {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding-bottom: 10px;
-}
-.credits .credit-role {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-.credits .credit-name {
-  font-size: 16px;
-  color: var(--text);
-}
-.credits .credit-name em { color: var(--gold); font-style: normal; }
-.credits.two-col { grid-template-columns: 1fr 1fr; column-gap: 24px; }
-
-.composition + .card-grid { margin-top: 40px; }
-
-@media (max-width: 760px) {
-  .composition { grid-template-columns: 1fr; gap: 24px; }
-}
-
-/* ─── Research section ───────────────────────────────── */
-.research-intro {
-  font-size: 19px;
-  color: var(--text-dim);
-  max-width: 680px;
-  margin-bottom: 36px;
-}
-.research-intro .cyan { color: var(--cyan); }
-
-/* ─── Tag ─────────────────────────────────────────────── */
-.tag {
-  display: inline-block;
-  padding: 3px 10px;
-  border-radius: 999px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  border: 1px solid var(--gold-dim);
-  color: var(--gold);
-  background: var(--gold-soft);
-}
-.tag.cool {
-  border-color: var(--cyan-dim);
-  color: var(--cyan);
-  background: var(--cyan-soft);
-}
-.tag.muted {
-  border-color: var(--border);
-  color: var(--text-muted);
-  background: transparent;
-}
-
-/* ───────── contact form ───────── */
-.cf-wrap { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(28px, 5vw, 56px); align-items: start; }
-.cf-intro p { color: var(--text-dim); font-size: 18px; line-height: 1.65; margin: 0 0 22px; }
-.cf-links { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 16px; }
-.cf-links a { font-family: 'JetBrains Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); }
-.cf-links a:hover { text-decoration: underline; }
-.cf-form[hidden] { display: none; }
-.cf-form fieldset { border: 0; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px; }
-.cf-form fieldset > .cf-field:nth-of-type(3) { grid-column: 1 / -1; }
-@media (max-width: 520px) { .cf-form fieldset { grid-template-columns: 1fr; } }
-.cf-form fieldset[disabled] { opacity: .55; }
-.cf-field { display: grid; gap: 7px; }
-.cf-field label { font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
-.cf-field input, .cf-field textarea { width: 100%; box-sizing: border-box; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text); font-family: inherit; font-size: 17px; padding: 12px 14px; resize: vertical; transition: border-color .18s ease, box-shadow .18s ease; }
-.cf-field input:focus, .cf-field textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-soft); }
-.cf-field input::placeholder, .cf-field textarea::placeholder { color: var(--text-muted); }
-.cf-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
-.cf-submit { margin-top: 20px; width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: var(--gold); color: var(--bg); border: 0; border-radius: var(--radius-sm); cursor: pointer; font-family: 'JetBrains Mono', monospace; font-size: 15px; text-transform: uppercase; letter-spacing: 1px; padding: 14px 20px; transition: opacity .18s ease, transform .12s ease; }
-.cf-submit:hover { opacity: .9; }
-.cf-submit:active { transform: translateY(1px); }
-.cf-submit.is-loading { pointer-events: none; opacity: .85; }
-.cf-spinner { display: none; width: 15px; height: 15px; border: 2px solid rgba(0,0,0,.3); border-top-color: var(--bg); border-radius: 50%; animation: cf-spin .7s linear infinite; }
-.cf-submit.is-loading .cf-spinner { display: inline-block; }
-@keyframes cf-spin { to { transform: rotate(360deg); } }
-.cf-status { min-height: 20px; margin: 14px 0 0; font-size: 16px; color: #ef6b6b; }
-.cf-success { text-align: center; padding: 16px 0; }
-.cf-success[hidden] { display: none; }
-.cf-check { width: 56px; height: 56px; margin: 0 auto 18px; display: grid; place-items: center; border-radius: 50%; background: var(--gold-soft); color: var(--gold); }
-.cf-success h3 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 28px; }
-.cf-success p { color: var(--text-dim); margin: 8px 0 0; }
-.cf-again { margin-top: 22px; background: transparent; border: 1px solid var(--border); color: var(--text-dim); border-radius: var(--radius-sm); cursor: pointer; font-family: 'JetBrains Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; padding: 11px 18px; transition: border-color .18s ease, color .18s ease; }
-.cf-again:hover { border-color: var(--gold); color: var(--text); }
-@media (max-width: 720px) { .cf-wrap { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
-
-<header class="site-header">
-  <div class="inner">
-    <div class="brand">
-      <span class="brand-mark">Music</span>
-    </div>
-    <nav class="nav">
-      <a href="#about">about</a>
-      <a href="#journey">journey</a>
-      <a href="#stage">stage</a>
-      <a href="#compositions">compositions</a>
-      <a href="#studio">studio</a>
-      <a href="#research">research</a>
-      <a href="#projects">projects</a>
-    </nav>
-    <a class="bar-cta" href="#contact">Say hello</a>
-    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark theme" title="Toggle theme">
-      <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
-      <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
-    </button>
-  </div>
-</header>
+<canvas id="bg" aria-hidden="true"></canvas>
+<header class="topbar"><div class="bar">
+  <a class="brand" href="#top" aria-label="Music, back to top">Music</a>
+  <nav class="nav" aria-label="Sections">
+    <a href="#journey">Journey</a>
+    <a href="#stage">Stage</a>
+    <a href="#compositions">Compositions</a>
+    <a href="#projects">Projects</a>
+  </nav>
+  <div class="spacer"></div>
+  <button class="iconbtn" id="theme-toggle" type="button" aria-label="Switch theme" title="Switch theme"><svg class="ico-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg><svg class="ico-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg></button>
+  <a class="cta" href="#contact">Say hello</a>
+</div></header>
 
 <main id="home">
 
-<section class="hero group" data-solo>
-  <div class="hero-text">
-  <div class="eyebrow">a music journey · 2010 — present</div>
+<!-- ─── HERO ─── -->
+<section class="group" id="top" data-solo><div class="wrap hero">
+  <div class="eyebrow">A music journey · 2010 — present</div>
   <h1>People, instruments, <em>chord</em><br>and a little bit of <em>code</em>.</h1>
-  <p class="lede">
-    Keyboardist by hand, arranger by habit, co-lead of the faculty orchestra, once — now sneaking music
-    into HCI research, one sensor at a time.
-  </p>
-  <div class="meta">
-    <span>Colombo / Singapore</span>
-    <span>part-time enthusiast</span>
-    <span>occasionally near-professional</span>
-  </div>
+  <p class="lede">Keyboardist by hand, arranger by habit, co-lead of the faculty orchestra, once — now sneaking music into HCI research, one sensor at a time.</p>
+  <div class="chips">
+    <span class="chip">Colombo / Singapore</span>
+    <span class="chip">part-time enthusiast</span>
+    <span class="chip">occasionally near-professional</span>
   </div>
   <figure class="hero-art" aria-label="A C major chord on a keyboard, turned into code and frequencies">
     <svg viewBox="0 0 440 340" role="img" aria-hidden="true">
@@ -799,260 +367,120 @@ a { color: inherit; text-decoration: none; }
       </g>
     </svg>
   </figure>
-</section>
+</div></section>
 
-<!-- ─── ABOUT ───────────────────────────────────────────── -->
-<section class="section group" id="about">
-  <div class="section-head">
-    <span class="section-num">01</span>
-    <h2>About</h2>
-  </div>
-  <div class="about-grid">
+<!-- ─── JOURNEY (about folded in) ─── -->
+<section class="group" id="journey"><div class="wrap">
+  <div class="ghead">
     <div>
-      <p>
-        Music has been the quiet thread under everything I do. I play <strong>keyboard instruments</strong> —
-        sometimes near-professional, mostly as a hobby — and have spent more late nights than I should admit
-        on chord voicings, re-harmonisations, and the small joy of an arrangement that finally
-        <em>sits right</em>.
-      </p>
-      <p>
-        From 2013 to 2015 I played keyboard in the <strong>Faculty Orchestra at the University of Sri Jayewardenepura</strong>,
-        co-led it once, and performed in concerts across both university auditoriums and the largest theatres in Sri Lanka.
-      </p>
+      <h2>The journey</h2>
+      <p>Music is the quiet thread under everything I do: keyboards, chord voicings, and the small joy of an arrangement that finally <em>sits right</em>. Now the question is <span class="cy">what happens when computers join the ensemble?</span></p>
     </div>
-    <div>
-      <p>
-        Today I'm a part-time enthusiast with a new question:
-        <strong class="accent">what happens when computers join the ensemble?</strong>
-      </p>
-      <p>
-        My current work explores <strong>HCI research toward music</strong> — embodied interaction,
-        gesture-driven instruments, and computer-based composition tools. Some experiments live in
-        this workspace; more are on the way.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ─── JOURNEY ─────────────────────────────────────────── -->
-<section class="section group" id="journey">
-  <div class="section-head">
-    <span class="section-num">02</span>
-    <h2>The Journey</h2>
+    <div class="ctx"><b>2010</b> — present</div>
   </div>
   <div class="timeline">
-
     <div class="t-item">
       <div class="t-year">2010</div>
-      <div class="t-title">Nil Ahasa Sara — school science day</div>
-      <p class="t-body">
-        Composed an original song for the science day at Taxila Central College,
-        then sequenced, recorded, and mixed it at home. <a href="#compositions">Listen below</a>.
-      </p>
+      <div class="t-title">Nil Ahasa Sara</div>
+      <p class="t-body">An original song for the Taxila Central College science day, recorded and mixed at home.</p>
     </div>
-
     <div class="t-item">
       <div class="t-year">2013</div>
-      <div class="t-title">Faculty Orchestra — University of Sri Jayewardenepura</div>
-      <p class="t-body">
-        Joined as keyboardist, and later co-led the ensemble once. Learned more about
-        cueing, dynamics, and people than any single instrument could teach.
-      </p>
+      <div class="t-title">Faculty Orchestra, USJP</div>
+      <p class="t-body">Joined as keyboardist and co-led it once. Learned more about cueing, dynamics and people than any instrument could teach.</p>
     </div>
-
     <div class="t-item">
       <div class="t-year">2013 — 2015</div>
-      <div class="t-title">University concerts &amp; arrangements</div>
-      <p class="t-body">
-        Multiple performances across the university circuit. Began writing chord works and
-        creative arrangements for the orchestra's pieces — finding the voicing that made
-        a familiar song feel new.
-      </p>
+      <div class="t-title">Concerts &amp; arrangements</div>
+      <p class="t-body">Performances across the university circuit, and chord arrangements that made familiar songs feel new.</p>
     </div>
-
     <div class="t-item">
       <div class="t-year">2014 — 2015</div>
       <div class="t-title">Sisi Arundathee · BMICH</div>
-      <p class="t-body">
-        Performed in <em>Sisi Arundathee</em>, an annual concert held at BMICH —
-        one of the largest music theatres in Sri Lanka.
-      </p>
+      <p class="t-body">An annual concert at BMICH, one of the largest music theatres in Sri Lanka.</p>
     </div>
-
     <div class="t-item">
       <div class="t-year">2015</div>
-      <div class="t-title">Live MIDI tone-driven keyboard performance</div>
-      <p class="t-body">
-        An early HCI moment: a university concert where the keyboard's tones were
-        driven live by MIDI routing rather than the instrument's onboard voices.
-        In retrospect, this was where the research instinct started.
-      </p>
+      <div class="t-title">A live MIDI keyboard set</div>
+      <p class="t-body">Keyboard tones driven live by MIDI routing. In retrospect, where the research instinct started.</p>
     </div>
-
-    <div class="t-item research">
+    <div class="t-item hci">
       <div class="t-year">2024 — present</div>
       <div class="t-title">HCI experiments toward music</div>
-      <p class="t-body">
-        Returning to music with a computer-science lens. Building embodied
-        instruments, gesture-driven arrangements, and small studies of how
-        humans and machines can perform together.
-      </p>
+      <p class="t-body">Embodied instruments, gesture-driven arrangements, and small studies of humans and machines performing together.</p>
     </div>
-
   </div>
-</section>
+</div></section>
 
-<!-- ─── STAGE ───────────────────────────────────────────── -->
-<section class="section group" id="stage">
-  <div class="section-head">
-    <span class="section-num">03</span>
-    <h2>On Stage</h2>
-  </div>
-
-  <div class="composition">
-    <div class="video-frame">
-      <iframe
-        src="https://www.youtube-nocookie.com/embed/xC8n4EGagz0"
-        title="Sisi Arundathee 2015"
-        loading="lazy"
-        allow="accelerated-download; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen></iframe>
+<!-- ─── STAGE ─── -->
+<section class="group" id="stage"><div class="wrap">
+  <div class="ghead">
+    <div>
+      <h2>On stage</h2>
+      <p>With the Faculty Orchestra of the University of Sri Jayewardenepura, from university auditoriums to the largest theatres in Sri Lanka.</p>
     </div>
-
-    <div class="comp-meta">
-      <div class="role">orchestra intro · live</div>
+    <div class="ctx"><b>2013</b> — 2015</div>
+  </div>
+  <div class="feature">
+    <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/xC8n4EGagz0" title="Sisi Arundathee 2015, orchestra introduction" loading="lazy" allow="accelerated-download; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+    <div class="panel">
+      <div class="kicker">Orchestra intro · live</div>
       <h3>Sisi Arundathee 2015</h3>
-      <div class="where">university concert · 2015</div>
-      <p>
-        The main performance track and orchestra introduction from <em>Sisi Arundathee</em>.
-        I directed the creative chord arrangements; the composition was a collective effort
-        by the ensemble.
-      </p>
-      <ul class="credits two-col">
-        <li>
-          <span class="credit-role">music director</span>
-          <span class="credit-name"><em>Sankha Cooray</em></span>
-        </li>
-        <li>
-          <span class="credit-role">orchestra lead</span>
-          <span class="credit-name">Selaka Bandara</span>
-        </li>
+      <div class="where">University concert · BMICH, Colombo</div>
+      <p>The main performance track and orchestra introduction from the annual flagship concert, staged at one of Sri Lanka's largest performing-arts venues.</p>
+      <ul class="credits">
+        <li><span class="cr">Music director</span><span class="nm me">Sankha Cooray</span></li>
+        <li><span class="cr">Orchestra lead</span><span class="nm">Selaka Bandara</span></li>
       </ul>
     </div>
   </div>
-
-</section>
-
-<section class="section group" id="stage-concerts" aria-label="Concerts">
-  <div class="card-grid">
-
-    <a class="card" href="https://www.youtube.com/watch?v=xC8n4EGagz0" target="_blank" rel="noopener">
-      <div class="role">annual · BMICH</div>
-      <h3>Sisi Arundathee</h3>
-      <div class="where">Bandaranaike Memorial International Conference Hall, Colombo</div>
-      <p>
-        Performed as a keyboardist in this annual flagship concert — staged at one of
-        Sri Lanka's largest performing-arts venues.
-      </p>
-      <span class="link">watch band intro</span>
+  <div class="minis">
+    <a class="mini" href="https://www.youtube.com/watch?v=xC8n4EGagz0" target="_blank" rel="noopener">
+      <div class="kicker">Annual · BMICH</div>
+      <h4>Sisi Arundathee</h4>
+      <p>Keyboardist in the annual flagship concert.</p>
+      <span class="go">Watch the band intro</span>
     </a>
-
-    <div class="card">
-      <div class="role">annual · USJP</div>
-      <h3>Sathsara Dehena</h3>
-      <div class="where">University of Sri Jayewardenepura auditorium</div>
-      <p>
-        Annual university concert, performed with the faculty orchestra across multiple
-        years (2013 – 2015).
-      </p>
-      <span class="link muted">media coming soon</span>
+    <div class="mini">
+      <div class="kicker">Annual · USJP</div>
+      <h4>Sathsara Dehena</h4>
+      <p>The university concert, with the faculty orchestra, 2013 – 2015.</p>
+      <span class="soon">Media coming soon</span>
     </div>
-
-    <div class="card">
-      <div class="role">2015 · experimental</div>
-      <h3>Live MIDI keyboard set</h3>
-      <div class="where">University concert</div>
-      <p>
-        A keyboard performance where tones were driven live by routed MIDI signals
-        — an early step toward the HCI work that came later.
-      </p>
-      <span class="link muted">recording coming</span>
+    <div class="mini">
+      <div class="kicker">2015 · experimental</div>
+      <h4>Live MIDI keyboard set</h4>
+      <p>Tones driven live by routed MIDI signals.</p>
+      <span class="soon">Recording coming</span>
     </div>
-
   </div>
+</div></section>
 
-  <p class="note">
-    Recordings and programme notes from these concerts will be added here as they're
-    digitised and cleared.
-  </p>
-</section>
-
-<!-- ─── COMPOSITIONS ─────────────────────────────────────── -->
-<section class="section group" id="compositions">
-  <div class="section-head">
-    <span class="section-num">04</span>
-    <h2>Compositions</h2>
-    <span class="tag">2010</span>
-  </div>
-
-  <div class="composition">
-    <div class="video-frame">
-      <iframe
-        src="https://www.youtube-nocookie.com/embed/imdawOKGn14"
-        title="Nil Ahasa Sara — composition by Sankha Cooray (2010)"
-        loading="lazy"
-        allow="accelerated-download; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen></iframe>
+<!-- ─── COMPOSITIONS + STUDIO ─── -->
+<section class="group" id="compositions"><div class="wrap">
+  <div class="ghead">
+    <div>
+      <h2>Compositions</h2>
+      <p>Composition, sequencing, arrangement and mixing, built up across years of home-studio experiments. The tools shifted; the chord-work instinct stayed.</p>
     </div>
-
-    <div class="comp-meta">
-      <div class="role">original song · science day</div>
+    <div class="ctx">Original song · <b>2010</b></div>
+  </div>
+  <div class="feature">
+    <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/imdawOKGn14" title="Nil Ahasa Sara, composition by Sankha Cooray (2010)" loading="lazy" allow="accelerated-download; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+    <div class="panel">
+      <div class="kicker">Original song · science day</div>
       <h3>Nil Ahasa Sara</h3>
       <div class="where">Taxila Central College · Sri Lanka · 2010</div>
-      <p>
-        An original composition written for the school science day. The whole song came
-        together over a handful of nights — MIDI sequenced and arranged the first night,
-        vocals recorded segment-by-segment the next day, mixed into the main track the
-        day after, and a lip-sync video shot on the last.
-      </p>
-      <p>
-        Composed, MIDI-recorded, mixed, and mastered entirely at home on an old Pentium 4
-        Windows PC paired with a Yamaha PSR-1500 arranger workstation, using
-        Propellerhead Reason and Adobe Audition.
-      </p>
-      <ul class="credits">
-        <li>
-          <span class="credit-role">melody · composition · production</span>
-          <span class="credit-name"><em>Sankha Cooray</em></span>
-        </li>
-        <li>
-          <span class="credit-role">lyrics</span>
-          <span class="credit-name">Wasthsala Dayananda</span>
-        </li>
-        <li>
-          <span class="credit-role">vocals</span>
-          <span class="credit-name">Chathura Jayasankha &amp; Thrikala Dharani</span>
-        </li>
+      <p>Written for the school science day and finished in a handful of nights: sequenced first, vocals recorded segment by segment, mixed, then a lip-sync video. Made at home on a Pentium 4 PC and a Yamaha PSR-1500.</p>
+      <ul class="credits" style="--c:3">
+        <li><span class="cr">Melody · production</span><span class="nm me">Sankha Cooray</span></li>
+        <li><span class="cr">Lyrics</span><span class="nm">Wasthsala Dayananda</span></li>
+        <li><span class="cr">Vocals</span><span class="nm">Chathura Jayasankha &amp; Thrikala Dharani</span></li>
       </ul>
     </div>
   </div>
-</section>
-
-<!-- ─── STUDIO ──────────────────────────────────────────── -->
-<section class="section group" id="studio">
-  <div class="section-head">
-    <span class="section-num">05</span>
-    <h2>In the Studio</h2>
-  </div>
-
-  <p class="research-intro">
-    Composition, sequencing, arrangement, and mixing — built up across years of
-    home-studio experiments. The tools shifted; the chord-work instinct stayed.
-  </p>
-
-  <div class="tools-grid">
+  <div class="tools" id="studio" aria-label="In the studio">
+    <span class="lbl">In the studio</span>
     <a class="tool" href="https://www.image-line.com/fl-studio/" target="_blank" rel="noopener">
       <div class="glyph"><img src="brand/fl-studio.png" width="26" height="26" alt="FL Studio logo"></div>
       <div class="body">
@@ -1082,172 +510,50 @@ a { color: inherit; text-decoration: none; }
       </div>
     </a>
   </div>
+</div></section>
 
-  <p class="note">
-    Brand names are linked to their official sites. Logos are trademarks of their
-    respective owners.
-  </p>
-</section>
-
-<!-- ─── RESEARCH ────────────────────────────────────────── -->
-<section class="section group" id="research">
-  <div class="section-head">
-    <span class="section-num">06</span>
-    <h2>Music × HCI</h2>
-    <span class="tag cool">ongoing</span>
-  </div>
-
-  <p class="research-intro">
-    Lately the question has shifted from <em>"what should we play?"</em> to
-    <span class="cyan"><em>"how should we play it together with machines?"</em></span>
-    These are open experiments — small, hands-on, sometimes embarrassing,
-    occasionally delightful.
-  </p>
-
-  <div class="card-grid">
-
-    <a class="card" href="https://conduct.sankhacooray.com/" target="_blank" rel="noopener">
-      <div class="role cool">experiment · 01</div>
-      <h3>Embodied Orchestra</h3>
-      <div class="where">conduct.sankhacooray.com</div>
-      <p>
-        A gesture-driven mini-orchestra in the browser — theremin, bow,
-        and scale-banded instruments controlled by the body.
-      </p>
-      <span class="link cool">visit</span>
-    </a>
-
-    <a class="card" href="https://augmented-human-lab.github.io/kiwrious/sound-bites/" target="_blank" rel="noopener">
-      <div class="role cool">experiment · 02</div>
-      <h3>Sound Bites</h3>
-      <div class="where">Kiwrious · Augmented Human Lab · 2023</div>
-      <p>
-        A fork and spoon wired to a Kiwrious conductivity sensor turn eating
-        into sound — each bite's conductivity sets the pitch of a live
-        oscillator, played as sine, triangle, square, or saw waves.
-      </p>
-      <span class="link cool">visit · needs a Kiwrious sensor</span>
-    </a>
-
-    <a class="card" href="https://stakcos.com/itiles/midi/" target="_blank" rel="noopener">
-      <div class="role cool">experiment · 03</div>
-      <h3>iTiles MIDI</h3>
-      <div class="where">iTiles · Web MIDI + Bluetooth</div>
-      <p>
-        Plug in a MIDI keyboard and play — each note lights up a set of
-        Bluetooth iTiles in real time, across modes like Rainbow Roll,
-        Velocity Heat, Chord Bloom, and Chord Mood, which reads the chord
-        and fades the tiles to its emotional colour.
-      </p>
-      <span class="link cool">visit · needs a MIDI keyboard + iTiles</span>
-    </a>
-
-    <div class="card">
-      <div class="role cool">slot · reserved</div>
-      <h3>More experiments</h3>
-      <div class="where">coming to this page</div>
-      <p>
-        Additional music × HCI projects from the workspace will land here as
-        they reach a state worth sharing.
-      </p>
-      <span class="link muted">to be added</span>
+<!-- ─── MUSIC × HCI PROJECTS: two screens, grouped by type ─── -->
+<section class="group" id="projects"><div class="wrap">
+  <div class="ghead">
+    <div>
+      <div class="eyebrow">Music × HCI</div>
+      <h2>Playing with machines</h2>
+      <p>Lately the question has shifted from <em>"what should we play?"</em> to <span class="cy">"how should we play it together with machines?"</span> Here the body, a salad bowl and a MIDI keyboard become instruments.</p>
     </div>
-
   </div>
-</section>
-
-
-<!-- ─── PROJECTS ────────────────────────────────────────── -->
-<section class="section group" id="projects">
-  <div class="section-head">
-    <span class="section-num">07</span>
-    <h2>Selected Projects</h2>
-    <span class="tag cool">the workspace</span>
+  <div class="cards">
+    <article class="card"><div class="art"><img src="thumbs/conduct.jpg" alt="conduct preview" loading="lazy" width="800" height="420"></div><div class="cbody"><div class="ctop"><h3>conduct</h3><span class="status live">Live</span></div><p>Your phone&#x27;s movement becomes the instrument: an embodied mini-orchestra with Conductor, Theremin and Bow modes.</p><div class="cfoot"><span class="kind">Browser · gesture orchestra</span><a class="open" href="https://conduct.sankhacooray.com/" target="_blank" rel="noopener">Open</a></div></div></article>
+    <article class="card"><div class="art"><img src="thumbs/soundbites.jpg" alt="Soundbites preview" loading="lazy" width="800" height="420"></div><div class="cbody"><div class="ctop"><h3>Soundbites</h3><span class="status live">Live</span></div><p>A fork and spoon wired to a Kiwrious conductivity sensor: every bite of salad sets the pitch of a live tone.</p><div class="cfoot"><span class="kind">Kiwrious · Augmented Human Lab</span><button class="parts" type="button" aria-label="2 parts: Soundbites (Vue), Soundbites HTML5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg>2 parts</button><div class="pop" role="tooltip"><b>Built from</b><ul><li>Soundbites (Vue)<span>The live web app, 2023 · <code>sound-bites-vue</code></span></li><li>Soundbites HTML5<span>Plain HTML5 port, not deployed yet · <code>sound-bites-html5</code></span></li></ul></div><a class="open" href="https://augmented-human-lab.github.io/kiwrious/sound-bites/" target="_blank" rel="noopener">Open</a></div></div></article>
+    <article class="card"><div class="art"><img src="thumbs/itiles.jpg" alt="iTiles MIDI preview" loading="lazy" width="800" height="420"></div><div class="cbody"><div class="ctop"><h3>iTiles MIDI</h3><span class="status live">Live</span></div><p>Play a MIDI keyboard and Bluetooth iTiles light up with every note, from Rainbow Roll to Chord Mood colours.</p><div class="cfoot"><span class="kind">iTiles · Web MIDI + Bluetooth</span><a class="open" href="https://stakcos.com/itiles/midi/" target="_blank" rel="noopener">Open</a></div></div></article>
   </div>
+</div></section>
 
-  <p class="research-intro">
-    The music lens is a small workspace of built things — instruments, studios,
-    and voice tools. Some are already <span class="cyan">live</span>; others are
-    still on the bench. What's shown here isn't always reachable yet.
-  </p>
-
-  <div class="card-grid">
-
-    <a class="card" href="https://conduct.sankhacooray.com/" target="_blank" rel="noopener">
-      <img class="proj-thumb" loading="lazy" src="thumbs/conduct.jpg" alt="conduct preview">
-      <span class="tag cool">live</span>
-      <div class="role cool">browser · gesture orchestra</div>
-      <h3>conduct</h3>
-      <div class="where">conduct.sankhacooray.com</div>
-      <p>
-        A motion-driven music experiment — your phone's movement becomes the
-        instrument, across Conductor, Theremin, and Bow modes.
-      </p>
-      <span class="link cool">visit</span>
-    </a>
-
-    <div class="card">
-      <img class="proj-thumb" loading="lazy" src="thumbs/voxlab.jpg" alt="voxlab preview">
-      <span class="tag muted">in the lab</span>
-      <div class="role">browser · music IDE</div>
-      <h3>voxlab</h3>
-      <div class="where">Vox Track Studio</div>
-      <p>
-        A dependency-free, in-browser music IDE: hum melodies and beatbox grooves
-        into your mic and it transcribes them into notes and drum hits, quantizes,
-        and arranges the tracks on a timeline.
-      </p>
-      <span class="link muted">not public yet</span>
+<section class="group" id="projects-voice"><div class="wrap">
+  <div class="ghead">
+    <div>
+      <div class="eyebrow">Music × HCI</div>
+      <h2>Voice, song &amp; language</h2>
+      <p>Tools that listen: humming turned into notes, Sinhala lyrics into meaning, and speech into labelled data. Open experiments, small and hands-on.</p>
     </div>
-
-    <a class="card" href="https://aruth.sankhacooray.com/" target="_blank" rel="noopener">
-      <img class="proj-thumb" loading="lazy" src="thumbs/aruth.jpg" alt="Aruth preview">
-      <span class="tag cool">live</span>
-      <div class="role">web + server · translation</div>
-      <h3>Aruth</h3>
-      <div class="where">aruth.sankhacooray.com</div>
-      <p>
-        Paste a Sinhala song and get its literary meaning in English — a
-        Claude-powered read of the lyric's sense, mood, and imagery rather than a
-        stiff word-for-word gloss.
-      </p>
-      <span class="link cool">visit</span>
-    </a>
-
-    <div class="card">
-      <img class="proj-thumb" loading="lazy" src="thumbs/voicelab.jpg" alt="voicelab preview">
-      <span class="tag muted">in the lab</span>
-      <div class="role">kiosk + hub + dashboard · voice data</div>
-      <h3>voicelab</h3>
-      <div class="where">Sinhala voice-data system</div>
-      <p>
-        A distributed voice-data pipeline: kiosk mic nodes detect and transcribe
-        speech, a hub aggregates the live stream, and an Apps Script dashboard
-        stores clips and drives human-in-the-loop labeling.
-      </p>
-      <span class="link muted">not public yet</span>
-    </div>
-
   </div>
-</section>
-
-
-<!-- ===================== CONTACT ===================== -->
-<section class="section group" id="contact">
-  <div class="section-head">
-    <span class="section-num">08</span>
-    <h2>Get in touch</h2>
+  <div class="cards">
+    <article class="card"><div class="art"><img src="thumbs/voxlab.jpg" alt="voxlab preview" loading="lazy" width="800" height="420"></div><div class="cbody"><div class="ctop"><h3>voxlab</h3><span class="status">In the lab</span></div><p>Hum melodies and beatbox grooves into the mic; it transcribes notes and drum hits and arranges the tracks.</p><div class="cfoot"><span class="kind">Browser · music IDE</span><span class="later">Not public yet</span></div></div></article>
+    <article class="card"><div class="art"><img src="thumbs/aruth.jpg" alt="Aruth preview" loading="lazy" width="800" height="420"></div><div class="cbody"><div class="ctop"><h3>Aruth</h3><span class="status live">Live</span></div><p>Paste a Sinhala song and read its literary meaning in English: sense, mood and imagery, not a stiff gloss.</p><div class="cfoot"><span class="kind">Web + server · lyric meaning</span><button class="parts" type="button" aria-label="2 parts: Aruth web, Aruth API"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg>2 parts</button><div class="pop" role="tooltip"><b>Built from</b><ul><li>Aruth web<span>Frontend on a Cloudflare Worker · <code>gee-aruth-html5</code></span></li><li>Aruth API<span>Python backend on Cloud Run · <code>gee-aruth-server</code></span></li></ul></div><a class="open" href="https://aruth.sankhacooray.com/" target="_blank" rel="noopener">Open</a></div></div></article>
+    <article class="card"><div class="art"><img src="thumbs/voicelab.jpg" alt="voicelab preview" loading="lazy" width="800" height="420"></div><div class="cbody"><div class="ctop"><h3>voicelab</h3><span class="status">In the lab</span></div><p>Kiosk mics transcribe Sinhala speech, a hub gathers the live stream, and a dashboard drives the labelling.</p><div class="cfoot"><span class="kind">Kiosk + hub · voice data</span><button class="parts" type="button" aria-label="3 parts: Satellite kiosk, Hub server, Labelling dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg>3 parts</button><div class="pop" role="tooltip"><b>Built from</b><ul><li>Satellite kiosk<span>Mic node that detects and transcribes speech · <code>voicelab-satellite-html5</code></span></li><li>Hub server<span>Aggregates the live stream · <code>voicelab-server</code></span></li><li>Labelling dashboard<span>Apps Script: stores clips, human-in-the-loop labels · <code>voicelab-dashboard-appscript</code></span></li></ul></div><span class="later">Not public yet</span></div></div></article>
   </div>
-  <div class="cf-wrap">
-    <div class="cf-intro">
-      <p>Have a project, a question, or just want to say hello? Drop a note below and it'll reach me directly.</p>
-      <ul class="cf-links">
-        <li><a href="https://www.linkedin.com/in/sankhacooray/" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
-        <li><a href="https://github.com/sankhacooray" target="_blank" rel="noopener">GitHub &#8599;</a></li>
-        <li><a href="https://sankhacooray.com" target="_blank" rel="noopener">main site &#8599;</a></li>
-      </ul>
-    </div>
-    <form class="cf-form" id="cfForm" novalidate>
+</div></section>
+
+<!-- ─── CONTACT + FOOTER ─── -->
+<section class="group last" id="contact">
+  <div class="wrap">
+    <div class="ghead"><div><h2>Get in touch</h2></div></div>
+    <div class="contact">
+      <div>
+        <p class="say">Have a project, a question, or just want to <em>say hello?</em></p>
+        <p class="note">Drop a note and it'll reach me directly.</p>
+      </div>
+      <div>
+<form class="cf-form" id="cfForm" novalidate>
       <fieldset id="cfFields">
         <div class="cf-field">
           <label for="cf-name">Name</label>
@@ -1257,7 +563,7 @@ a { color: inherit; text-decoration: none; }
           <label for="cf-email">Email</label>
           <input id="cf-email" name="email" type="email" autocomplete="email" required maxlength="200" placeholder="you@example.com" />
         </div>
-        <div class="cf-field">
+        <div class="cf-field wide">
           <label for="cf-message">Message</label>
           <textarea id="cf-message" name="message" rows="4" required maxlength="5000" placeholder="What's on your mind?"></textarea>
         </div>
@@ -1272,7 +578,7 @@ a { color: inherit; text-decoration: none; }
       </button>
       <p class="cf-status" id="cfStatus" role="status" aria-live="polite"></p>
     </form>
-    <div class="cf-success" id="cfSuccess" hidden>
+<div class="cf-success" id="cfSuccess" hidden>
       <div class="cf-check" aria-hidden="true">
         <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>
       </div>
@@ -1281,15 +587,134 @@ a { color: inherit; text-decoration: none; }
       <button class="cf-again" id="cfAgain" type="button">Send another</button>
     </div>
   </div>
-  <!-- Shared network footer · cdn.sankhacooray.com (auto-themes to this page) -->
-  <div id="scn-footer" class="page-footer"></div>
-  <script async src="https://cdn.sankhacooray.com/js/sankha-footer.js?v=20261020"
-          data-site="music.sankhacooray.com"
-          data-tagline="a music journey, in progress"></script>
+      </div>
+    </div>
+  </div>
+  <footer class="footer"><div class="wrap">
+    <span>Music · a music journey by Sankha Cooray</span>
+    <a href="https://sankhacooray.com">sankhacooray.com</a>
+    <a href="https://www.linkedin.com/in/sankhacooray/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://github.com/sankhacooray" target="_blank" rel="noopener">GitHub</a>
+    <button class="info" id="info" type="button" aria-label="About links, logos and repositories" aria-describedby="info-msg">i</button>
+  </div></footer>
 </section>
 
 </main>
 
+<div class="glass" id="glass" role="tooltip"><div class="msg" id="info-msg">Brand names in the studio link to their official sites; logos are trademarks of their respective owners. Several project repositories are private, so only live sites are linked. Concert recordings and programme notes will be added as they're digitised and cleared.</div></div>
+
+<script>
+/* screen-fit + ↑/↓ paging (ui-ux-style rules 1, 2), scrollspy (22), deep links */
+(function(){
+  "use strict";
+  var scroller=document.body,topbar=document.querySelector(".topbar"),root=document.getElementById("home");
+  function barH(){return topbar?topbar.offsetHeight:0}
+  if(topbar&&window.ResizeObserver)new ResizeObserver(function(){document.documentElement.style.setProperty("--bar-h",barH()+"px")}).observe(topbar);
+  var natural=[];
+  function layout(){
+    var gs=[].slice.call(root.querySelectorAll(".group")),avail=scroller.clientHeight-barH();
+    /* hold the page height while re-measuring, so the reader's scroll position can't be clamped */
+    var keep=scroller.scrollTop;root.style.minHeight=root.offsetHeight+"px";
+    gs.forEach(function(g){g.style.minHeight=""});
+    if(window.innerWidth<=900){gs.forEach(function(g){g.classList.add("screen")});root.style.minHeight="";return}
+    var hs=gs.map(function(g){return g.getBoundingClientRect().height}),screens=[],cur=null;natural=hs;
+    gs.forEach(function(g,i){var solo=g.hasAttribute("data-solo")||(cur&&cur.solo);
+      if(cur&&!solo&&cur.sum+hs[i]<=avail+1){cur.items.push(i);cur.sum+=hs[i]}else{cur={items:[i],sum:hs[i],solo:g.hasAttribute("data-solo")};screens.push(cur)}});
+    screens.forEach(function(sc){var extra=Math.max(0,avail-sc.sum)/sc.items.length;sc.items.forEach(function(i,k){gs[i].style.minHeight=(hs[i]+extra)+"px";gs[i].classList.toggle("screen",k===0)})});
+    root.style.minHeight="";if(scroller.scrollTop!==keep)scroller.scrollTop=keep;
+    if(hashUntil&&!userMoved&&Date.now()<hashUntil)toHash();
+  }
+  var raf=0;function relayout(){cancelAnimationFrame(raf);raf=requestAnimationFrame(layout)}
+  if(window.ResizeObserver){new ResizeObserver(relayout).observe(scroller);
+    [].forEach.call(root.querySelectorAll(".group"),function(g){new ResizeObserver(function(){if(!g.style.minHeight||g.scrollHeight>parseFloat(g.style.minHeight)+1)relayout()}).observe(g)})}
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(relayout);
+  window.addEventListener("load",relayout);
+  var target=null;scroller.addEventListener("scrollend",function(){target=null});
+  function stops(){return [].map.call(root.querySelectorAll(".screen"),function(s){return Math.round(s.getBoundingClientRect().top+scroller.scrollTop-barH())})}
+  function pageBy(dir){var pos=target!=null?target:scroller.scrollTop,step=scroller.clientHeight-barH(),max=scroller.scrollHeight-scroller.clientHeight,s=stops(),dest;
+    if(dir>0){var nx=s.filter(function(t){return t>pos+4})[0];dest=Math.min(nx!=null?nx:max,pos+step)}else{var pv=s.filter(function(t){return t<pos-4}).pop();dest=Math.max(pv!=null?pv:0,pos-step)}
+    dest=Math.min(Math.max(dest,0),max);if(dest===Math.round(pos))return;target=dest;scroller.scrollTo({top:dest,behavior:"smooth"})}
+  document.addEventListener("keydown",function(e){if(e.key!=="ArrowDown"&&e.key!=="ArrowUp")return;if(e.altKey||e.ctrlKey||e.metaKey||e.shiftKey)return;
+    var t=e.target instanceof Element?e.target:null;if(t&&t.closest('input,textarea,select,[role="slider"],[contenteditable]'))return;e.preventDefault();pageBy(e.key==="ArrowDown"?1:-1)});
+  /* deep links (#projects) land under the app bar once layout settles */
+  function toHash(){var id=location.hash.slice(1);if(!/^[\w-]+$/.test(id))return;var el=document.getElementById(id);if(!el)return;
+    scroller.scrollTop=0;scroller.scrollTo({top:el.getBoundingClientRect().top-barH()})}
+  var hashUntil=location.hash?Date.now()+2500:0,userMoved=false;
+  ["wheel","touchstart","keydown"].forEach(function(ev){window.addEventListener(ev,function(){userMoved=true},{passive:true,once:true})});
+  relayout();
+  /* scrollspy: the topic filling the view is current; on the last screen, the last topic */
+  var links=[].slice.call(document.querySelectorAll('.nav a[href^="#"]')),spyRaf=0;
+  function spy(){spyRaf=0;var line=barH()+(scroller.clientHeight-barH())*0.4,cur=-1;
+    links.forEach(function(a,i){var el=document.querySelector(a.getAttribute("href"));if(el&&el.getBoundingClientRect().top<=line)cur=i});
+    if(scroller.scrollTop+scroller.clientHeight>=scroller.scrollHeight-2)cur=links.length-1;
+    links.forEach(function(a,i){if(i===cur)a.setAttribute("aria-current","true");else a.removeAttribute("aria-current")})}
+  scroller.addEventListener("scroll",function(){if(!spyRaf)spyRaf=requestAnimationFrame(spy)},{passive:true});
+  window.addEventListener("load",spy);
+  /* in-page links scroll the body scroller */
+  document.addEventListener("click",function(e){var a=e.target.closest('a[href^="#"]');if(!a)return;var id=a.getAttribute("href");
+    var el=id==="#top"?root:document.querySelector(id);if(!el)return;e.preventDefault();
+    scroller.scrollTo({top:id==="#top"?0:el.getBoundingClientRect().top+scroller.scrollTop-barH(),behavior:"smooth"})});
+  window.__screenFit={relayout:relayout,layout:layout,pageBy:pageBy,natural:function(){return natural}};
+})();
+/* ambient particles (rule 24): faint musical glyphs drifting on a slow random walk */
+(function(){
+  var cv=document.getElementById("bg");if(!cv||!cv.getContext)return;
+  var ctx=cv.getContext("2d"),W=0,H=0,parts=[],color="#9a6f2e",raf=0,last=0;
+  var still=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var P={
+    note:"M9 18V5l11-2v12M9 18a3 3 0 1 1-3-3 3 3 0 0 1 3 3zM20 15a3 3 0 1 1-3-3 3 3 0 0 1 3 3z",
+    keys:"M3 5h18v14H3zM7.5 5v8M12 5v8M16.5 5v8M7.5 13v6M12 13v6M16.5 13v6",
+    phones:"M4 15v-3a8 8 0 0 1 16 0v3M4 15h3v5H4zM17 15h3v5h-3z",
+    wave:"M2 12c2-6 4-6 6 0s4 6 6 0 4-6 6 0",
+    mic:"M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zM6 11a6 6 0 0 0 12 0M12 17v4M9 21h6",
+    fader:"M6 3v18M12 3v18M18 3v18M4 8h4M10 14h4M16 6h4",
+    tile:"M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"
+  };
+  var paths={};for(var k in P)paths[k]=new Path2D(P[k]);
+  var GLYPHS=["♪","♫","♩","♬","♭","♯","𝄞"];
+  var KINDS=Object.keys(P).concat(GLYPHS.map(function(g){return "t:"+g})).concat(["t:♪","t:♫"]);
+  function rnd(a,b){return a+Math.random()*(b-a)}
+  function readColor(){var c=getComputedStyle(document.documentElement).getPropertyValue("--gold").trim();if(c)color=c}
+  function make(){var d=Math.random();return{k:KINDS[(Math.random()*KINDS.length)|0],x:rnd(0,W),y:rnd(0,H),s:18+d*22,a:.05+d*.07,dir:rnd(0,Math.PI*2),sp:rnd(.06,.22)*(.6+d),r:rnd(-.5,.5),vr:rnd(-.0025,.0025)}}
+  function size(){var dpr=Math.min(window.devicePixelRatio||1,2);W=window.innerWidth;H=window.innerHeight;
+    cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);
+    var want=Math.max(12,Math.min(44,Math.round(W*H/38000)));while(parts.length<want)parts.push(make());parts.length=want;
+    parts.forEach(function(p){if(p.x>W+40)p.x=rnd(0,W);if(p.y>H+40)p.y=rnd(0,H)})}
+  function draw(p){ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.r);ctx.globalAlpha=p.a;ctx.strokeStyle=color;ctx.fillStyle=color;var sc=p.s/24;
+    if(p.k.indexOf("t:")===0){ctx.font=Math.round(p.s*1.05)+"px 'Instrument Serif', Georgia, serif";ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(p.k.slice(2),0,0)}
+    else{ctx.scale(sc,sc);ctx.translate(-12,-12);ctx.lineWidth=1.65;ctx.lineCap="round";ctx.lineJoin="round";ctx.stroke(paths[p.k])}
+    ctx.restore()}
+  function frame(t){var dt=last?Math.min(48,t-last)/16.7:1;last=t;ctx.clearRect(0,0,W,H);
+    for(var i=0;i<parts.length;i++){var p=parts[i];p.dir+=rnd(-.03,.03)*dt;p.x+=Math.cos(p.dir)*p.sp*dt;p.y+=Math.sin(p.dir)*p.sp*dt;p.r+=p.vr*dt;
+      var m=p.s;if(p.x<-m)p.x=W+m;else if(p.x>W+m)p.x=-m;if(p.y<-m)p.y=H+m;else if(p.y>H+m)p.y=-m;draw(p)}
+    raf=requestAnimationFrame(frame)}
+  function start(){cancelAnimationFrame(raf);last=0;if(still){ctx.clearRect(0,0,W,H);parts.forEach(draw)}else raf=requestAnimationFrame(frame)}
+  readColor();size();start();
+  window.addEventListener("resize",function(){size();if(still)start()});
+  document.addEventListener("visibilitychange",function(){if(document.hidden)cancelAnimationFrame(raf);else start()});
+  new MutationObserver(function(){readColor();if(still)start()}).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
+  if(window.matchMedia)window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",function(){readColor();if(still)start()});
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){if(still)start()});
+})();
+/* parts chips (rule 26): tap toggles on touch; Esc or a tap elsewhere closes */
+(function(){document.addEventListener("click",function(e){var p=e.target.closest(".parts");[].forEach.call(document.querySelectorAll(".parts.on"),function(x){if(x!==p)x.classList.remove("on")});if(p){e.preventDefault();p.classList.toggle("on")}});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape")[].forEach.call(document.querySelectorAll(".parts.on"),function(x){x.classList.remove("on")})})})();
+/* ⓘ: full-screen frosted note on hover intent; tap toggles on touch (rule 18) */
+(function(){var b=document.getElementById("info"),g=document.getElementById("glass");if(!b||!g)return;var timer=0;
+  function on(){clearTimeout(timer);g.classList.add("on")}function off(){clearTimeout(timer);g.classList.remove("on")}
+  function later(){clearTimeout(timer);timer=setTimeout(on,400)}
+  b.addEventListener("mouseenter",later);b.addEventListener("mouseleave",off);b.addEventListener("focus",later);b.addEventListener("blur",off);
+  b.addEventListener("click",function(e){e.stopPropagation();g.classList.toggle("on")});
+  document.addEventListener("click",function(e){if(e.target!==b)off()});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape")off()})})();
+/* theme toggle shared with the sankhacooray.com family; labelled with the theme it switches to (rule 23) */
+(function(){var r=document.documentElement,K="sc-theme",mq=window.matchMedia("(prefers-color-scheme: dark)");
+  function eff(){try{var s=localStorage.getItem(K);if(s==="light"||s==="dark")return s}catch(e){}return mq.matches?"dark":"light"}
+  var b=document.getElementById("theme-toggle");if(!b)return;
+  function label(){var l="Switch to "+(eff()==="dark"?"light":"dark")+" theme";b.setAttribute("aria-label",l);b.title=l}
+  label();if(mq.addEventListener)mq.addEventListener("change",label);
+  b.addEventListener("click",function(){var n=eff()==="dark"?"light":"dark";try{localStorage.setItem(K,n)}catch(e){}r.setAttribute("data-theme",n);label();window.dispatchEvent(new CustomEvent("sc-themechange",{detail:n}))})})();
+</script>
 <script>
 (function () {
   "use strict";
@@ -1346,106 +771,6 @@ a { color: inherit; text-decoration: none; }
       .catch(function () { showError("Network error — please try again, or reach me on LinkedIn."); })
       .finally(function () { setLoading(false); });
   });
-})();
-</script>
-
-
-<script>(function(){var r=document.documentElement,K="sc-theme",mq=window.matchMedia("(prefers-color-scheme: dark)");function eff(){try{var s=localStorage.getItem(K);if(s==="light"||s==="dark")return s;}catch(e){}return mq.matches?"dark":"light";}function wire(){var b=document.getElementById("theme-toggle");if(!b)return;b.addEventListener("click",function(){var n=eff()==="dark"?"light":"dark";try{localStorage.setItem(K,n);}catch(e){}r.setAttribute("data-theme",n);window.dispatchEvent(new CustomEvent("sc-themechange",{detail:n}));});}try{if(mq.addEventListener)mq.addEventListener("change",function(){try{if(!localStorage.getItem(K))window.dispatchEvent(new CustomEvent("sc-themechange"));}catch(e){}});}catch(e){}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",wire);else wire();})();</script>
-
-<script>
-/* Screen-fit layout + ↑/↓ paging (ui-ux rules 1, 2), from the ui-ux-style
-   skill's screen-fit.js. <body> is the scroller (rule 14). */
-(function () {
-  "use strict";
-  var scroller = document.body;
-  var topbar = document.querySelector(".site-header");
-  var root = document.getElementById("home");
-  var IGNORE = 'input, textarea, select, [role="radiogroup"], [role="slider"], [contenteditable]';
-  if (!root) return;
-  function barH() { return topbar ? topbar.offsetHeight : 0; }
-
-  if (topbar && window.ResizeObserver) {
-    new ResizeObserver(function () {
-      document.documentElement.style.setProperty("--bar-h", barH() + "px");
-    }).observe(topbar);
-  }
-
-  // Pack consecutive groups into one screen while they fit; share the
-  // leftover height evenly. Taller groups and [data-solo] stand alone.
-  function layout() {
-    var groups = [].slice.call(root.querySelectorAll(".group"));
-    var avail = scroller.clientHeight - barH();
-    // Hold the page height while groups are re-measured, so clearing their
-    // min-heights can't shrink the page and clamp the reader's scroll position.
-    var keep = scroller.scrollTop;
-    root.style.minHeight = root.offsetHeight + "px";
-    groups.forEach(function (g) { g.style.minHeight = ""; });
-    var h = groups.map(function (g) { return g.getBoundingClientRect().height; });
-    natural = h;
-    var screens = [], cur = null;
-    groups.forEach(function (g, i) {
-      var solo = g.hasAttribute("data-solo") || (cur && cur.solo);
-      if (cur && !solo && cur.sum + h[i] <= avail + 1) { cur.items.push(i); cur.sum += h[i]; }
-      else { cur = { items: [i], sum: h[i], solo: g.hasAttribute("data-solo") }; screens.push(cur); }
-    });
-    screens.forEach(function (sc) {
-      var extra = Math.max(0, avail - sc.sum) / sc.items.length;
-      sc.items.forEach(function (i, k) {
-        groups[i].style.minHeight = (h[i] + extra) + "px";
-        groups[i].classList.toggle("screen", k === 0);
-      });
-    });
-    root.style.minHeight = "";
-    if (scroller.scrollTop !== keep) scroller.scrollTop = keep;
-  }
-  var natural = [];
-  var raf = 0;
-  function relayout() { cancelAnimationFrame(raf); raf = requestAnimationFrame(layout); }
-  if (window.ResizeObserver) {
-    new ResizeObserver(relayout).observe(scroller);
-    // late content (shared footer, fonts, images) changes group heights
-    [].forEach.call(root.querySelectorAll(".group"), function (g) {
-      new ResizeObserver(function () { if (!g.style.minHeight || g.scrollHeight > parseFloat(g.style.minHeight) + 1) relayout(); }).observe(g);
-    });
-  }
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(relayout);
-  window.addEventListener("load", relayout);
-  relayout();
-
-  // ↑/↓ → next/previous screen start, or one screen inside a tall group.
-  var target = null;
-  scroller.addEventListener("scrollend", function () { target = null; });
-  function stops() {
-    return [].map.call(root.querySelectorAll(".screen"), function (el) {
-      return Math.round(el.getBoundingClientRect().top + scroller.scrollTop - barH());
-    });
-  }
-  function pageBy(dir) {
-    var pos = target != null ? target : scroller.scrollTop;
-    var step = scroller.clientHeight - barH();
-    var max = scroller.scrollHeight - scroller.clientHeight;
-    var s = stops(), dest;
-    if (dir > 0) {
-      var next = s.filter(function (t) { return t > pos + 4; })[0];
-      dest = Math.min(next != null ? next : max, pos + step);
-    } else {
-      var prev = s.filter(function (t) { return t < pos - 4; }).pop();
-      dest = Math.max(prev != null ? prev : 0, pos - step);
-    }
-    dest = Math.min(Math.max(dest, 0), max);
-    if (dest === Math.round(pos)) return;
-    target = dest;
-    scroller.scrollTo({ top: dest, behavior: "smooth" });
-  }
-  document.addEventListener("keydown", function (e) {
-    if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
-    if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
-    var t = e.target instanceof Element ? e.target : null;
-    if (t && t.closest(IGNORE)) return;
-    e.preventDefault();
-    pageBy(e.key === "ArrowDown" ? 1 : -1);
-  });
-  window.__screenFit = { relayout: relayout, layout: layout, pageBy: pageBy, natural: function () { return natural; } };
 })();
 </script>
 <script async src="https://sankhacooray.com/js/sankha-analytics.js"></script>
