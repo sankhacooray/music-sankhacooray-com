@@ -197,6 +197,7 @@ a.mini:hover{background:var(--card-hover)}
 
 /* project cards (rules 20, 21, 25, 26) */
 .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.cards.four{grid-template-columns:repeat(4,minmax(0,1fr))}
 .card{position:relative;display:flex;flex-direction:column;background:var(--surface);border-radius:var(--r);overflow:hidden;box-shadow:0 1px 2px #0000000d,0 12px 30px -22px #0000006b,inset 0 0 0 1px var(--line);transition:background-color .2s}
 .card:hover{background:var(--card-hover)}
 /* thumbnails scale with screen height so two rows of cards fit one screen (rules 1, 4) */
@@ -240,7 +241,7 @@ a.mini:hover{background:var(--card-hover)}
 .glass .msg{max-width:52ch;font-size:17px;line-height:1.6;color:var(--text)}
 
 @media (max-width:1000px){
-  .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cards,.cards.four{grid-template-columns:repeat(2,minmax(0,1fr))}
   .tools{grid-template-columns:repeat(2,minmax(0,1fr))}
   .tools .lbl{grid-column:1/-1}
 }
@@ -257,7 +258,7 @@ a.mini:hover{background:var(--card-hover)}
   .timeline::before{left:5px;transform:none}
 }
 @media (max-width:600px){
-  .cards,.tools,.credits{grid-template-columns:minmax(0,1fr)}
+  .cards,.cards.four,.tools,.credits{grid-template-columns:minmax(0,1fr)}
   .brand{font-size:26px}
 }
 @media (min-width:901px) and (max-height:780px){
@@ -499,13 +500,14 @@ a.mini:hover{background:var(--card-hover)}
     <div>
       <div class="eyebrow">Music × HCI</div>
       <h2>Playing with machines</h2>
-      <p>Lately the question has shifted from <em>"what should we play?"</em> to <span class="cy">"how should we play it together with machines?"</span> Here the body, a salad bowl and a MIDI keyboard become instruments.</p>
+      <p>Lately the question has shifted from <em>"what should we play?"</em> to <span class="cy">"how should we play it together with machines?"</span> Here the body, a salad bowl, a MIDI keyboard and the world's scales become instruments.</p>
     </div>
   </div>
-  <div class="cards">
+  <div class="cards four">
     <article class="card"><div class="art"><img src="thumbs/conduct.webp" alt="conduct preview" loading="lazy" width="800" height="420"></div><div class="cbody"><div class="ctop"><h3>conduct</h3><span class="status live">Live</span></div><p>Your phone&#x27;s movement becomes the instrument: an embodied mini-orchestra with Conductor, Theremin and Bow modes.</p><div class="cfoot"><span class="kind">Browser · gesture orchestra</span><a class="open" href="https://conduct.sankhacooray.com/" target="_blank" rel="noopener">Open</a></div></div></article>
-    <article class="card"><div class="art"><img src="thumbs/soundbites.webp" alt="Soundbites preview" loading="lazy" width="800" height="420"></div><div class="cbody"><div class="ctop"><h3>Soundbites</h3><span class="status live">Live</span></div><p>A fork and spoon wired to a Kiwrious conductivity sensor: every bite of salad sets the pitch of a live tone.</p><div class="cfoot"><span class="kind">Kiwrious · Augmented Human Lab</span><button class="parts" type="button" aria-label="2 parts: Soundbites (Vue), Soundbites HTML5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg>2 parts</button><div class="pop" role="tooltip"><b>Built from</b><ul><li>Soundbites (Vue)<span>The live web app, 2023 · <code>sound-bites-vue</code></span></li><li>Soundbites HTML5<span>Plain HTML5 port, not deployed yet · <code>sound-bites-html5</code></span></li></ul></div><a class="open" href="https://augmented-human-lab.github.io/kiwrious/sound-bites/" target="_blank" rel="noopener">Open</a></div></div></article>
+    <article class="card"><div class="art"><img src="thumbs/soundbites.webp" alt="Soundbites preview" loading="lazy" width="800" height="420"></div><div class="cbody"><div class="ctop"><h3>Soundbites</h3><span class="status live">Live</span></div><p>A fork and spoon wired to a Kiwrious conductivity sensor: every bite of salad sets the pitch of a live tone.</p><div class="cfoot"><span class="kind">Kiwrious · AHLab</span><button class="parts" type="button" aria-label="2 parts: Soundbites (Vue), Soundbites HTML5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg>2 parts</button><div class="pop" role="tooltip"><b>Built from</b><ul><li>Soundbites (Vue)<span>The live web app, 2023 · <code>sound-bites-vue</code></span></li><li>Soundbites HTML5<span>Plain HTML5 port, not deployed yet · <code>sound-bites-html5</code></span></li></ul></div><a class="open" href="https://augmented-human-lab.github.io/kiwrious/sound-bites/" target="_blank" rel="noopener">Open</a></div></div></article>
     <article class="card"><div class="art"><img src="thumbs/itiles.webp" alt="iTiles MIDI preview" loading="lazy" width="800" height="420"></div><div class="cbody"><div class="ctop"><h3>iTiles MIDI</h3><span class="status live">Live</span></div><p>Play a MIDI keyboard and Bluetooth iTiles light up with every note, from Rainbow Roll to Chord Mood colours.</p><div class="cfoot"><span class="kind">iTiles · Web MIDI + Bluetooth</span><a class="open" href="https://stakcos.com/itiles/midi/" target="_blank" rel="noopener">Open</a></div></div></article>
+    <article class="card"><div class="art"><img src="thumbs/gamut.webp" alt="Gamut preview" loading="lazy" width="800" height="420"></div><div class="cbody"><div class="ctop"><h3>Gamut</h3><span class="status live">Live</span></div><p>The world's musical scales as shapes on one chromatic wheel, from maqam and raga to gamelan, each playable.</p><div class="cfoot"><span class="kind">Browser · world scales</span><a class="open" href="https://gamut.sankhacooray.com/" target="_blank" rel="noopener">Open</a></div></div></article>
   </div>
 </div></section>
 
