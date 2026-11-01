@@ -231,7 +231,9 @@ a.mini:hover{background:var(--card-hover)}
 
 .last{justify-content:flex-start}
 .last > .wrap:first-child{margin-top:auto}
-.footer{margin-top:auto;padding-top:clamp(18px,4vh,44px)}
+/* shared music apps bar (cdn sankha-apps.js) sits just above the footer line */
+#scn-apps{margin-top:auto;padding:clamp(18px,4vh,44px) 16px 0;min-height:36px;box-sizing:content-box;color:var(--text)}
+.footer{padding-top:clamp(12px,2.4vh,22px)}
 .footer .wrap{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px 16px;font-size:14px;color:var(--muted)}
 .footer a{color:var(--dim)}
 .footer a:hover{color:var(--gold)}
@@ -532,6 +534,7 @@ a.mini:hover{background:var(--card-hover)}
   <div class="wrap">
     <div id="scn-contact" data-source="music.sankhacooray.com"></div>
   </div>
+  <nav id="scn-apps" data-suite="music"></nav>
   <footer class="footer"><div class="wrap">
     <span>Music · a music journey by Sankha Cooray</span>
     <a href="https://sankhacooray.com">sankhacooray.com</a>
@@ -663,6 +666,7 @@ a.mini:hover{background:var(--card-hover)}
   b.addEventListener("click",function(){var n=eff()==="dark"?"light":"dark";try{localStorage.setItem(K,n)}catch(e){}r.setAttribute("data-theme",n);label();window.dispatchEvent(new CustomEvent("sc-themechange",{detail:n}))})})();
 </script>
 <script defer src="https://cdn.sankhacooray.com/js/sankha-contact.js?v=20261025"></script>
+<script defer src="https://cdn.sankhacooray.com/js/sankha-apps.js?v=20261101"></script>
 <script async src="https://sankhacooray.com/js/sankha-analytics.js"></script>
 </body>
 </html>
